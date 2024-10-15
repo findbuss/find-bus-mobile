@@ -1,23 +1,39 @@
-import { Text, View, StyleSheet } from 'react-native'
-
+import { ScrollView, Text, View, StyleSheet } from 'react-native'
+import Wrapper from '../components/Wrapper'
 import SearchBar from '../components/SearchBar'
+import ChipBar from '../components/ChipBar'
 import Card from '../components/Card'
+import colors from '../styles/colors'
 
-export default function Home() {
+export default function Home({ navigation }) {
+  const data = [
+    {
+      title: 'Linhas',
+      action: null
+    },
+    {
+      title: 'Paradas',
+      action: null
+    }
+  ]
+
   return (
-    <View style={styles.container}>
-      <SearchBar/>
-      <Card>
-        <Text>Bem-vindo de volta!</Text>
-      </Card>
-    </View>
+    <Wrapper>
+      <View style={styles.container}>
+        <SearchBar navigation={navigation}/>
+        <ChipBar data={data}/>
+        <Card title='Linhas recentes'>
+          
+        </Card>
+      </View>
+    </Wrapper>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    gap: '0.75rem',
-    padding: '0.75rem'
+    flex: 1,
+    gap: 12,
+    padding: 12
   }
 })

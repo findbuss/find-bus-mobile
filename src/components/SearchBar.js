@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
-
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
 import colors from '../styles/colors'
+import ProfileButton from '../components/ProfileButton'
 
-export default function SearchBar() {
+export default function SearchBar({ navigation }) {
   const [isClicked, setIsClicked] = useState(false)
 
   return (
@@ -15,9 +14,10 @@ export default function SearchBar() {
         style={styles.input}
         placeholder="Pesquisar"
         onFocus={() => {
-          setIsClicked(true)
+          
         }}
       />
+      <ProfileButton navigation={navigation}/>
     </View>
   )
 }
@@ -27,27 +27,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.secondaryBackgroundColor,
     border: '1px solid ' + colors.borderColor,
-    borderRadius: '0.75rem',
+    borderRadius: 12,
     display: 'flex',
     flexDirection: 'row',
-    outline: 'auto'
+    gap: 8,
+    outline: 'auto',
+    outlineColor: colors.highlightColor,
+    paddingInline: 12,
+    width: '100%'
   },
   container: {
     alignItems: 'center',
     backgroundColor: colors.secondaryBackgroundColor,
     border: '1px solid ' + colors.borderColor,
-    borderRadius: '0.75rem',
+    borderRadius: 12,
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    gap: 8,
+    paddingInline: 12,
+    width: '100%'
   },
   icon: {
-    fontSize: '1rem',
-    padding: '0.75rem'
+    fontSize: 16,
   },
   input: {
     outline: 'none',
-    paddingRight: '0.75rem',
-    paddingVertical: '0.75rem',
+    paddingRight: 12,
+    paddingVertical: 12,
     width: '100%'
   }
 })

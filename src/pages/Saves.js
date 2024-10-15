@@ -1,10 +1,23 @@
 import { Text, View, StyleSheet } from 'react-native'
-
+import Wrapper from '../components/Wrapper'
 import SearchBar from '../components/SearchBar'
+import ChipBar from '../components/ChipBar'
 import Card from '../components/Card'
-import BusItem from '../components/BusItem'
+import Bus from '../components/Bus'
+import colors from '../styles/colors'
 
-export default function Home() {
+export default function Saves() {
+  const data = [
+    {
+      title: 'Linhas',
+      action: null
+    },
+    {
+      title: 'Paradas',
+      action: null
+    }
+  ]
+  
   const buses = [
     {
       color: 'yellow',
@@ -21,27 +34,30 @@ export default function Home() {
   ]
 
   return (
-    <View style={styles.container}>
-      <SearchBar/>
-      <Card>
-        <Text style={styles.title}>Salvos</Text>
-        <View>
-          {buses.map((item) => (
-            <BusItem color={item.color} code={item.code} destination={item.destination} distance={item.distance}/>
-          ))}
-        </View>
-      </Card>
-    </View>
+    <Wrapper>
+      <View style={styles.container}>
+        <SearchBar/>
+        <ChipBar data={data}/>
+        <Card title='Linhas salvas'>
+          <View style={styles.itemArea}>
+            {buses.map((item) => (
+              <Bus color={item.color} code={item.code} destination={item.destination} distance={item.distance}/>
+            ))}
+          </View>
+        </Card>
+      </View>
+    </Wrapper>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    gap: '0.75rem',
-    padding: '0.75rem'
+    flex: 1,
+    gap: 12,
+    padding: 12
   },
-  title: {
-    fontWeight: 'bold'
+  itemArea: {
+    display: 'flex',
+    gap: 12
   }
 })

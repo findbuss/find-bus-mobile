@@ -4,5 +4,6 @@ export default {
   primaryBackgroundColor: '#E8F1F2',
   primaryTextColor: '#000',
   secondaryBackgroundColor: '#FFF',
-  secondaryTextColor: '#8C8B8B'
+  secondaryTextColor: '#8C8B8B',
+  tertiaryBackgroundColor: '#E1E9EF'
 }

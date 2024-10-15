@@ -1,14 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
 import colors from '../styles/colors'
-
 import Home from '../pages/Home'
-import BusStops from '../pages/BusStops'
+import Map from '../pages/Map'
 import Saves from '../pages/Saves'
-import Profile from '../pages/Profile'
 
 const Tab = createBottomTabNavigator()
 
@@ -22,16 +18,13 @@ export default function MyTab() {
 
             switch (route.name) {
               case 'Home':
-                iconName = focused ? 'home': 'home-outline'
+                iconName = focused ? 'search': 'search-outline'
                 break
-              case 'BusStops':
+              case 'Map':
                 iconName = focused? 'location': 'location-outline'
                 break
               case 'Saves':
                 iconName = focused? 'bookmark': 'bookmark-outline'
-                break
-              case 'Profile':
-                iconName = focused? 'person': 'person-outline'
             }
             
             return <Ionicons name={iconName} size={size} color={color} />
@@ -41,10 +34,9 @@ export default function MyTab() {
           headerShown: false
         })}
       >
-        <Tab.Screen name="Home" component={Home} options={{ title: 'Home' }}/>
-        <Tab.Screen name="BusStops" component={BusStops} options={{ title: 'Paradas' }}/>
+        <Tab.Screen name="Home" component={Home} options={{ title: 'Busca' }}/>
+        <Tab.Screen name="Map" component={Map} options={{ title: 'Explorar' }}/>
         <Tab.Screen name="Saves" component={Saves} options={{ title: 'Salvos' }}/>
-        <Tab.Screen name="Profile" component={Profile} options={{ title: 'Perfil' }}/>
       </Tab.Navigator>
     </NavigationContainer>
   )
