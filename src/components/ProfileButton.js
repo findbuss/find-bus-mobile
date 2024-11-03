@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     aspectRatio: '1/1',
     backgroundColor: colors.highlightColor,
-    borderRadius: '50%',
+    borderRadius: 50,
     display: 'flex',
     height: 32,
     justifyContent: 'center'
