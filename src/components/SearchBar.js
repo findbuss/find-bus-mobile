@@ -18,19 +18,21 @@ export default function SearchBar({ children, navigation }) {
         />
         <ProfileButton navigation={navigation}/>
       </View>
-      {isClicked && <View style={styles.search}>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => setIsClicked(false)}>
-            <Ionicons style={styles.icon} name="arrow-back-outline"/>
-          </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            placeholder="Pesquisar"
-            autoFocus={true}
-          />
+      {isClicked && (
+        <View style={styles.search}>
+          <View style={styles.container}>
+            <TouchableOpacity onPress={() => setIsClicked(false)}>
+              <Ionicons style={styles.icon} name="arrow-back-outline"/>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Pesquisar"
+              autoFocus={true}
+            />
+          </View>
+          {children}
         </View>
-        {children}
-      </View>}
+      )}
     </>
   )
 }
