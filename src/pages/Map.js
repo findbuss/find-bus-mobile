@@ -5,6 +5,7 @@ import colors from "../styles/colors";
 import { getBusShape } from "../services/gtfs-api/api.services";
 import { useEffect, useState } from "react";
 import StopsMap from "../components/maps/stops-map";
+import ShapeMap from "../components/maps/shape-map";
 
 export default function Map() {
   const [busLineState, setBusLineState] = useState([]);
@@ -14,7 +15,7 @@ export default function Map() {
     <Wrapper>
       <View style={styles.container}>
         <SearchBar />
-        <StopsMap />
+        <ShapeMap />
       </View>
     </Wrapper>
   );

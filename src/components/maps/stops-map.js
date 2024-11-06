@@ -2,14 +2,19 @@ import React, { Component, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { getStopsByLonLat } from "../../services/gtfs-api/api.services";
+import pDebounce from "p-debounce";
+import StopIcon from "../../../assets/icons/stop.png";
 
 export default function StopsMap() {
   const [mapRegion, setMapRegion] = useState(null);
   const [arrStops, setArrStops] = useState();
 
   async function onRegionChange(region) {
-    const stop = await getStopsByLonLat(region.longitude, region.latitude);
-    setArrStops(stop);
+    const stop = pDebounce(getStopsByLonLat, 200);
+
+    setTimeout(async () => {
+      setArrStops(await stop(region.longitude, region.latitude));
+    }, 200);
 
     // setMapRegion(region);
   }
@@ -41,6 +46,7 @@ export default function StopsMap() {
                 longitude: marker.geometry.coordinates[0],
               }}
               title={marker.properties.stop_name}
+              image={StopIcon}
             />
           );
         })}

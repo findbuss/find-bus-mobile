@@ -9,7 +9,7 @@ export async function getBusShape(shapeID) {
 
 export async function getStopsByLonLat(lon, lat) {
   const response = await axios.get(
-    `${baseURL}api/stops?stop_lat=${lat}&stop_lon=${lon}&bounding_box_side_m=1000`
+    `${baseURL}api/stops?stop_lat=${lat}&stop_lon=${lon}&bounding_box_side_m=2000`
   );
 
   return response.data;
