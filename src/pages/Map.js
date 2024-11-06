@@ -1,16 +1,20 @@
 import { Text, View, StyleSheet } from "react-native";
 import Wrapper from "../components/Wrapper";
 import SearchBar from "../components/SearchBar";
-import Bus from "../components/Bus";
 import colors from "../styles/colors";
-import MapView from "react-native-maps";
+import { getBusShape } from "../services/gtfs-api/api.services";
+import { useEffect, useState } from "react";
+import StopsMap from "../components/maps/stops-map";
 
 export default function Map() {
+  const [busLineState, setBusLineState] = useState([]);
+  const [region, setRegion] = useState([]);
+
   return (
     <Wrapper>
       <View style={styles.container}>
         <SearchBar />
-        <MapView style={styles.map} />
+        <StopsMap />
       </View>
     </Wrapper>
   );
@@ -28,10 +32,5 @@ const styles = StyleSheet.create({
   title: {
     color: colors.primaryTextColor,
     fontWeight: "bold",
-  },
-  map: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 10,
   },
 });

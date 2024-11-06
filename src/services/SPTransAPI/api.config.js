@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 
 const api = axios.create({
   baseURL: process.env.SPTRANS_API_URL,
