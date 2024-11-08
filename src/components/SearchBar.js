@@ -73,10 +73,12 @@ const styles = StyleSheet.create({
   },
   search: {
     backgroundColor: colors.primaryBackgroundColor,
+    bottom: 0,
     flex: 1,
     gap: 12,
     height: '100%',
     left: 0,
+    right: 0,
     padding: 12,
     position: 'absolute',
     top: 0,
