@@ -1,43 +1,27 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import colors from '../styles/colors'
-import Home from '../pages/Home'
-import Map from '../pages/Map'
-import Saves from '../pages/Saves'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import App from './stack'
+import Profile from '../pages/Profile'
+import SignIn from '../pages/SignIn'
+import SignUp from '../pages/SignUp'
+import { isAuth } from '../utils/index'
 
-const Tab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
 
-export default function MyTab() {
+export default function MyStack() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName
-
-            switch (route.name) {
-              case 'Home':
-                iconName = focused ? 'search': 'search-outline'
-                break
-              case 'Map':
-                iconName = focused? 'location': 'location-outline'
-                break
-              case 'Saves':
-                iconName = focused? 'bookmark': 'bookmark-outline'
-            }
-            
-            return <Ionicons name={iconName} size={size} color={color} />
-          },
-          tabBarActiveTintColor: colors.highlightColor,
-          tabBarInactiveTintColor: colors.secondaryTextColor,
-          headerShown: false
-        })}
-      >
-        <Tab.Screen name="Home" component={Home} options={{ title: 'Busca' }}/>
-        <Tab.Screen name="Map" component={Map} options={{ title: 'Explorar' }}/>
-        <Tab.Screen name="Saves" component={Saves} options={{ title: 'Salvos' }}/>
-      </Tab.Navigator>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="App" component={App}/>
+        {isAuth ? (
+          <Stack.Screen name="Profile" component={Profile}/>
+        ) : (
+          <>
+            <Stack.Screen name="SignIn" component={SignIn}/>
+            <Stack.Screen name="SignUp" component={SignUp}/>
+          </>
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }

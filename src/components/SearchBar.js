@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import colors from '../styles/colors'
-import ProfileButton from './ProfileButton'
+import Avatar from './Avatar'
 
 export default function SearchBar({ children, navigation }) {
   const [isClicked, setIsClicked] = useState(false)
@@ -16,7 +16,7 @@ export default function SearchBar({ children, navigation }) {
           placeholder="Pesquisar"
           onFocus={() => setIsClicked(true)}
         />
-        <ProfileButton navigation={navigation}/>
+        <Avatar navigation={navigation}/>
       </View>
       {isClicked && (
         <View style={styles.search}>
