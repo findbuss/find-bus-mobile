@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import App from './stack'
+import App from './tab'
 import Profile from '../pages/Profile'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
