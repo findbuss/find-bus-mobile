@@ -14,7 +14,7 @@ export default function SignUp() {
         <Input placeholder='E-mail'/>
         <Input placeholder='Senha'/>
         <Button>Cadastrar</Button>
-        <Text style={styles.title}>Já tem uma conta? <Link to={{ screen: 'SignIn' }}>Criar uma nova conta</Link></Text>
+        <Text style={styles.paragraph}>Já tem uma conta? <Link to={{ screen: 'SignIn' }}>Criar uma nova conta</Link></Text>
       </View>
     </Wrapper>
   )
@@ -31,6 +31,11 @@ const styles = StyleSheet.create({
     color: colors.primaryTextColor,
     fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  paragraph: {
+    color: colors.secondaryTextColor,
+    fontSize: 14,
     textAlign: 'center'
   }
 })
