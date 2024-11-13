@@ -13,7 +13,7 @@
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
     "axios": "^1.7.7",
-    "expo": "~51.0.28",
+    "expo": "^52.0.3",
     "expo-status-bar": "~1.12.1",
     "mongoose": "^8.8.0",
     "p-debounce": "^4.0.0",
