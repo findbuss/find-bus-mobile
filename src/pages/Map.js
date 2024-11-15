@@ -1,9 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Wrapper from "../components/Wrapper";
 import SearchBar from "../components/SearchBar";
 import colors from "../styles/colors";
-import { getBusShape } from "../services/gtfs-api/api.services";
-import { useEffect, useState } from "react";
 import StopsMap from "../components/maps/stops-map";
 import ShapeMap from "../components/maps/shape-map";
 
