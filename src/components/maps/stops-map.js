@@ -5,18 +5,14 @@ import { getStopsByLonLat } from "../../services/gtfs-api/api.services";
 import pDebounce from "p-debounce";
 import StopIcon from "../../../assets/icons/stop.png";
 
+const stop = pDebounce(getStopsByLonLat, 300);
+
 export default function StopsMap() {
   const [mapRegion, setMapRegion] = useState(null);
   const [arrStops, setArrStops] = useState();
 
   async function onRegionChange(region) {
-    const stop = pDebounce(getStopsByLonLat, 200);
-
-    setTimeout(async () => {
-      setArrStops(await stop(region.longitude, region.latitude));
-    }, 200);
-
-    // setMapRegion(region);
+    setArrStops(await stop(region.longitude, region.latitude));
   }
 
   useEffect(() => {
