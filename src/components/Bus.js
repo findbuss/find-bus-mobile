@@ -9,7 +9,7 @@ export default function Bus({ data, navigation }) {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("BusStops", { shapeId: data.shape_id });
+        navigation.navigate("BusDetails", { shapeId: data.shape_id });
       }}
       style={styles.container}
     >

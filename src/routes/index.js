@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import BusStops from "../pages/BusStops";
+import BusDetails from "../pages/bus-details";
 import SignIn from "../pages/SignIn";
 import Profile from "../pages/Profile";
 import SignUp from "../pages/SignUp";
@@ -15,7 +15,7 @@ export default function Routes() {
         screenOptions={{ headerShown: false }}
         initialRouteName="Tabs"
       >
-        <Stack.Screen name="BusStops" component={BusStops} />
+        <Stack.Screen name="BusDetails" component={BusDetails} />
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="SignIn" component={SignIn} />

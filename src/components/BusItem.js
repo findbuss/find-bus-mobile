@@ -1,15 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-
 import Ionicons from "react-native-vector-icons/Ionicons";
-
 import colors from "../styles/colors";
 
-export default function BusItem({ color, code, destination, distance }) {
+export default function BusItem({
+  code,
+  destination,
+  distance,
+  backgroundColor,
+  navigation,
+}) {
   const [saved, setSaved] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("BusDetails", { code });
+      }}
+      style={[styles.container, { backgroundColor }]}
+    >
       <View style={styles.code}>
         <Text style={styles.text}>{code}</Text>
       </View>
@@ -22,24 +31,24 @@ export default function BusItem({ color, code, destination, distance }) {
           <Ionicons style={styles.icon} name={"bookmark-outline"} />
         )}
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: "transparent",
+    borderRadius: 12,
     display: "flex",
     flexDirection: "row",
-    gap: "0.5rem",
-    paddingBlock: "0.5rem",
+    gap: 8,
+    padding: 8,
   },
   code: {
-    backgroundColor: "yellow",
-    borderRadius: 10,
+    borderRadius: 8,
     color: colors.primaryTextColor,
-    padding: "0.5rem",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
   text: {
     fontWeight: "bold",
@@ -55,14 +64,14 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 50,
     display: "flex",
-    padding: "0.5rem",
+    padding: 8,
   },
   icon: {
     color: colors.secondaryTextColor,
-    fontSize: "1.5rem",
+    fontSize: 24,
   },
   activedIcon: {
     color: colors.highlightColor,
-    fontSize: "1.5rem",
+    fontSize: 24,
   },
 });

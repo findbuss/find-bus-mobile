@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { getBusShape } from "../../services/gtfs-api/api.services";
 
-export default function ShapeMap() {
+export default function ShapeMap({ shapeId }) {
   const [mapRegion, setMapRegion] = useState(null);
   const [busResponse, setBusResponse] = useState();
 
@@ -31,7 +31,7 @@ export default function ShapeMap() {
         longitudeDelta: 0.0421,
       });
     }
-    const response = await getBusShape(45866);
+    const response = await getBusShape(shapeId);
 
     const shapes = convertCoordinates(
       response.features[0].geometry.coordinates
