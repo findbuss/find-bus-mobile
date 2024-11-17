@@ -5,6 +5,7 @@ import SignIn from "../pages/SignIn";
 import Profile from "../pages/Profile";
 import SignUp from "../pages/SignUp";
 import Tabs from "../pages/tabs";
+import StopLines from "../pages/stop-lines";
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function Routes() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="StopLines" component={StopLines} />
       </Stack.Navigator>
     </NavigationContainer>
   );

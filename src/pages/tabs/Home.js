@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, Text, View, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import Wrapper from "../../components/Wrapper";
 import SearchBar from "../../components/SearchBar";
 import ChipBar from "../../components/ChipBar";
@@ -23,6 +29,18 @@ export default function Home({ navigation }) {
         <SearchBar navigation={navigation} />
         <ChipBar data={data} />
         <Card title="Linhas recentes">{/* Conteúdo adicional */}</Card>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("StopLines", {
+              stopId: 240007262,
+            });
+          }}
+        >
+          <Text>
+            Botão de testes da lista de linhas de uma parada pq eu to com
+            preguiça de arrumar o erro que tá dando quando você faz isso no mapa
+          </Text>
+        </TouchableOpacity>
       </View>
     </Wrapper>
   );

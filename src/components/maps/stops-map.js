@@ -7,7 +7,7 @@ import StopIcon from "../../../assets/icons/stop.png";
 
 const stop = pDebounce(getStopsByLonLat, 300);
 
-export default function StopsMap() {
+export default function StopsMap({ navigation }) {
   const [mapRegion, setMapRegion] = useState(null);
   const [arrStops, setArrStops] = useState();
 
@@ -28,7 +28,7 @@ export default function StopsMap() {
 
   return (
     <MapView
-      onRegionChange={onRegionChange}
+      onRegionChange={(region) => onRegionChange(region)}
       region={mapRegion}
       style={styles.map}
     >
@@ -43,6 +43,11 @@ export default function StopsMap() {
               }}
               title={marker.properties.stop_name}
               image={StopIcon}
+              onPress={() => {
+                navigation.navigate("StopLines", {
+                  stopId: marker.properties.stop_id,
+                });
+              }}
             />
           );
         })}

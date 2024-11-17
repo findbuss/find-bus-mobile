@@ -19,7 +19,7 @@ export default function Bus({ data, navigation }) {
         </Text>
       </View>
 
-      <Text style={styles.title}>{data.destination}</Text>
+      <Text style={styles.title}>{data.route_long_name}</Text>
       <Text style={styles.highlightText}>{data.next_bus}</Text>
 
       <TouchableOpacity style={styles.button} onPress={() => setSaved(!saved)}>

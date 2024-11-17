@@ -5,7 +5,7 @@ import colors from "../../styles/colors";
 import StopsMap from "../../components/maps/stops-map";
 import Wrapper from "../../components/Wrapper";
 
-export default function Map() {
+export default function Map({ navigation }) {
   const [busLineState, setBusLineState] = useState([]);
   const [region, setRegion] = useState([]);
 
@@ -13,7 +13,7 @@ export default function Map() {
     <Wrapper>
       <View style={styles.container}>
         <SearchBar />
-        <StopsMap />
+        <StopsMap navigation={navigation} />
       </View>
     </Wrapper>
   );

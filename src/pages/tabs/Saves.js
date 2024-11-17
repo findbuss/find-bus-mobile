@@ -25,7 +25,7 @@ export default function Saves({ navigation }) {
       route_color: "#FFD100",
       route_text_color: "#000000",
       trip_id: "233C-10-0",
-      destination: "Ceret",
+      route_long_name: "Ceret",
       next_bus: "5min",
     },
     {
@@ -34,7 +34,7 @@ export default function Saves({ navigation }) {
       route_color: "#DA291C",
       route_text_color: "#FFFFFF",
       trip_id: "407L-10-0",
-      destination: "Barro Branco",
+      route_long_name: "Barro Branco",
       next_bus: "5min",
     },
   ];
