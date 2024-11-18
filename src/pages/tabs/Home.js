@@ -29,18 +29,6 @@ export default function Home({ navigation }) {
         <SearchBar navigation={navigation} />
         <ChipBar data={data} />
         <Card title="Linhas recentes">{/* Conteúdo adicional */}</Card>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("StopLines", {
-              stopId: 240007262,
-            });
-          }}
-        >
-          <Text>
-            Botão de testes da lista de linhas de uma parada pq eu to com
-            preguiça de arrumar o erro que tá dando quando você faz isso no mapa
-          </Text>
-        </TouchableOpacity>
       </View>
     </Wrapper>
   );
