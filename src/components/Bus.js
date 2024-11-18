@@ -6,10 +6,12 @@ import colors from "../styles/colors";
 export default function Bus({ data, navigation }) {
   const [saved, setSaved] = useState(false);
 
+  console.log(data.route_id);
+
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("BusDetails", { shapeId: data.shape_id });
+        navigation.navigate("BusDetails", { routeId: data.route_id });
       }}
       style={styles.container}
     >

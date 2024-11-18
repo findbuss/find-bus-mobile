@@ -42,8 +42,6 @@ export default function ShapeMap({ shapeId }) {
     });
   }, []);
 
-  console.log(busResponse);
-
   return (
     <MapView region={mapRegion} style={styles.map}>
       {busResponse &&
