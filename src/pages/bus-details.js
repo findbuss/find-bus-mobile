@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getTrips, getRoute } from "../services/gtfs-api/api.services";
 import Bus from "../components/Bus";
 
-export default function BusDetails() {
+export default function BusDetails({ navigation }) {
   const router = useRoute();
   const { routeId } = router.params;
 
@@ -32,7 +32,7 @@ export default function BusDetails() {
     getRoutes();
   }, []);
 
-  console.log("caminho", trips);
+  console.log("camnho", trips);
   console.log("rota", route);
 
   return (
@@ -43,9 +43,13 @@ export default function BusDetails() {
         <Text style={styles.title}>{routeId}</Text>
         {trips &&
           route &&
-          trips.map((trip) => {
+          trips.map((trip, index) => {
             return (
               <Bus
+                onPress={() => {
+                  navigation.navigate("BusDetails", { routeId: data.route_id });
+                }}
+                key={index}
                 data={{
                   route_id: routeId,
                   shape_id: trip.shape_id,
@@ -58,8 +62,8 @@ export default function BusDetails() {
               />
             );
           })}
+        {trips && <ShapeMap shapeId={trips[0].shape_id} />}
       </Card>
-      {/* {details && <ShapeMap shapeId={trips[0].shape_id} />} */}
     </SafeAreaView>
   );
 }

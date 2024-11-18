@@ -37,7 +37,17 @@ export default function StopLines({ navigation }) {
             <Text>{details.properties.stop_name}</Text>
           </View>
           {details.properties.routes.map((busLines, index) => {
-            return <Bus key={index} data={busLines} navigation={navigation} />;
+            return (
+              <Bus
+                onPress={() => {
+                  navigation.navigate("BusDetails", {
+                    routeId: busLines.route_id,
+                  });
+                }}
+                key={index}
+                data={busLines}
+              />
+            );
           })}
         </Card>
       )}
