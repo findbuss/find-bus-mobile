@@ -1,60 +1,64 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
+import MapView, { Polyline } from "react-native-maps";
 import { getBusShape } from "../../services/gtfs-api/api.services";
 
 export default function ShapeMap({ shapeId }) {
-  const [mapRegion, setMapRegion] = useState(null);
-  const [busResponse, setBusResponse] = useState();
+  const [mapRegion, setMapRegion] = useState({
+    latitude: -23.550164466,
+    longitude: -46.633664132,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+  const [busResponse, setBusResponse] = useState(null);
 
-  function convertCoordinates(coordinates) {
-    const arr = [];
-
-    coordinates.map((shape, index) => {
-      arr.push(
-        shape.map(([longitude, latitude]) => ({
-          latitude,
-          longitude,
-        }))
-      );
-    });
-
-    return arr;
-  }
-
-  useEffect(async () => {
-    if (mapRegion === null) {
-      setMapRegion({
-        latitude: -23.550164466,
-        longitude: -46.633664132,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      });
-    }
-    const response = await getBusShape(shapeId);
-
-    const shapes = convertCoordinates(
-      response.features[0].geometry.coordinates
+  // Converte coordenadas do formato da API para o formato esperado pelo MapView
+  const convertCoordinates = (coordinates) =>
+    coordinates.map((shape) =>
+      shape.map(([longitude, latitude]) => ({
+        latitude,
+        longitude,
+      }))
     );
-    setBusResponse({
-      shapes: shapes,
-      props: response.features[0].properties,
-    });
-  }, []);
+
+  useEffect(() => {
+    let isMounted = true; // Para evitar atualizações em componentes desmontados
+    const fetchBusShape = async () => {
+      try {
+        const response = await getBusShape(shapeId);
+        if (!isMounted) return; // Evita setState se o componente foi desmontado
+        const shapes = convertCoordinates(
+          response.features[0].geometry.coordinates
+        );
+        setBusResponse({
+          shapes,
+          props: response.features[0].properties,
+        });
+      } catch (error) {
+        console.error("Erro ao buscar shape:", error);
+      }
+    };
+
+    fetchBusShape();
+
+    return () => {
+      // Cleanup do efeito para evitar problemas de destruição
+      isMounted = false;
+      setBusResponse(null); // Limpa o estado do mapa para evitar resquícios
+    };
+  }, [shapeId]);
 
   return (
     <MapView region={mapRegion} style={styles.map}>
       {busResponse &&
-        busResponse.shapes.map((polyline, index) => {
-          return (
-            <Polyline
-              key={index}
-              coordinates={polyline}
-              strokeColor={busResponse.props.route_color || "#000"}
-              strokeWidth={6}
-            />
-          );
-        })}
+        busResponse.shapes.map((polyline, index) => (
+          <Polyline
+            key={index}
+            coordinates={polyline}
+            strokeColor={busResponse.props.route_color || "#000"}
+            strokeWidth={6}
+          />
+        ))}
     </MapView>
   );
 }

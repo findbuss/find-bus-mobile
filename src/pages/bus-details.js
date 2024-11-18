@@ -10,12 +10,13 @@ import { useEffect, useState } from "react";
 import { getTrips, getRoute } from "../services/gtfs-api/api.services";
 import Bus from "../components/Bus";
 
-export default function BusDetails({ navigation }) {
+export default function BusDetails() {
   const router = useRoute();
   const { routeId } = router.params;
 
   const [trips, setTrips] = useState(null);
   const [route, setRoute] = useState(null);
+  const [sentidoBus, setSentidoBus] = useState(0);
 
   async function getDetails() {
     const response = await getTrips(routeId);
@@ -32,22 +33,18 @@ export default function BusDetails({ navigation }) {
     getRoutes();
   }, []);
 
-  console.log("camnho", trips);
-  console.log("rota", route);
-
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar />
-      <Card>
-        <Text style={styles.title}>Paradas</Text>
-        <Text style={styles.title}>{routeId}</Text>
+      <View style={styles.lineDataContainer}>
         {trips &&
           route &&
           trips.map((trip, index) => {
             return (
               <Bus
                 onPress={() => {
-                  navigation.navigate("BusDetails", { routeId: data.route_id });
+                  setSentidoBus(index);
+                  console.log(index);
                 }}
                 key={index}
                 data={{
@@ -62,8 +59,10 @@ export default function BusDetails({ navigation }) {
               />
             );
           })}
-        {trips && <ShapeMap shapeId={trips[0].shape_id} />}
-      </Card>
+      </View>
+      {trips && (
+        <ShapeMap style={styles.map} shapeId={trips[sentidoBus].shape_id} />
+      )}
     </SafeAreaView>
   );
 }
@@ -75,6 +74,10 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "space-between",
     padding: 8,
+  },
+  lineDataContainer: {
+    display: "flex",
+    gap: 8,
   },
   title: {
     fontWeight: "bold",
