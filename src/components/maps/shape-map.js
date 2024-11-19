@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import MapView, { Polyline } from "react-native-maps";
-import { getBusShape } from "../../services/gtfs-api/api.services";
+import MapView, { Marker, Polyline } from "react-native-maps";
+import {
+  getBusShape,
+  getStopDetails,
+} from "../../services/gtfs-api/api.services";
 
 export default function ShapeMap({ shapeId }) {
   const [mapRegion, setMapRegion] = useState({
@@ -11,6 +14,19 @@ export default function ShapeMap({ shapeId }) {
     longitudeDelta: 0.0421,
   });
   const [busResponse, setBusResponse] = useState(null);
+
+  const [stops, setStops] = useState(null);
+
+  async function getLineStops(routeId) {
+    const stops = await getStopDetails(routeId);
+    setStops(stops);
+  }
+
+  useEffect(() => {
+    if (busResponse) {
+      getLineStops(busResponse.props.route_id);
+    }
+  }, []);
 
   // Converte coordenadas do formato da API para o formato esperado pelo MapView
   const convertCoordinates = (coordinates) =>
@@ -59,6 +75,25 @@ export default function ShapeMap({ shapeId }) {
             strokeWidth={6}
           />
         ))}
+      {stops &&
+        stops.features.map((marker, index) => {
+          return (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: marker.geometry.coordinates[1],
+                longitude: marker.geometry.coordinates[0],
+              }}
+              title={marker.properties.stop_name}
+              image={StopIcon}
+              onPress={() => {
+                navigation.navigate("StopLines", {
+                  stopId: marker.properties.stop_id,
+                });
+              }}
+            />
+          );
+        })}
     </MapView>
   );
 }
