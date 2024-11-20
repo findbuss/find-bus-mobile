@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import colors from '../styles/colors'
 import Avatar from './Avatar'
+
+const { width, height } = Dimensions.get('window')
 
 export default function SearchBar({ children, navigation }) {
   const [isClicked, setIsClicked] = useState(false)
@@ -73,16 +75,14 @@ const styles = StyleSheet.create({
   },
   search: {
     backgroundColor: colors.primaryBackgroundColor,
-    bottom: 0,
     flex: 1,
     gap: 12,
-    height: '100%',
+    height: height,
     left: 0,
-    right: 0,
     padding: 12,
     position: 'absolute',
     top: 0,
-    width: '100%',
+    width: width,
     zIndex: 1
   }
 })
