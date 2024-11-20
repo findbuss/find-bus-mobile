@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import SearchBar from "../../components/SearchBar";
-import colors from "../../styles/colors";
-import StopsMap from "../../components/maps/stops-map";
-import Wrapper from "../../components/Wrapper";
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import SearchBar from '../../components/SearchBar';
+import colors from '../../styles/colors';
+import StopsMap from '../../components/maps/stops-map';
+import Wrapper from '../../components/Wrapper';
+
+const { width, height } = Dimensions.get('window')
 
 export default function Map({ navigation }) {
   const [busLineState, setBusLineState] = useState([]);
@@ -12,8 +14,10 @@ export default function Map({ navigation }) {
   return (
     <Wrapper>
       <View style={styles.container}>
-        <SearchBar />
         <StopsMap navigation={navigation} />
+        <View style={styles.floatingContent}>
+          <SearchBar />
+        </View>
       </View>
     </Wrapper>
   );
@@ -21,15 +25,18 @@ export default function Map({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    gap: 12,
-    height: "100%",
-    justifyContent: "space-between",
-    padding: 12,
-    flex: 1,
+    flex: 1
   },
-  title: {
-    color: colors.primaryTextColor,
-    fontWeight: "bold",
+  floatingContent: {
+    flex: 1,
+    gap: 12,
+    height: height,
+    justifyContent: 'space-between',
+    left: 0,
+    padding: 12,
+    position: 'absolute',
+    top: 0,
+    width: width,
+    zIndex: 1
   },
 });
