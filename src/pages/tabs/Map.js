@@ -14,7 +14,7 @@ export default function Map({ navigation }) {
   return (
     <Wrapper>
       <View style={styles.container}>
-        <StopsMap navigation={navigation} />
+      <StopsMap navigation={navigation} />
         <View style={styles.floatingContent}>
           <SearchBar />
         </View>
@@ -25,19 +25,13 @@ export default function Map({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    position: 'relative'
   },
   floatingContent: {
-    flex: 1,
-    gap: 12,
-    height: height,
-    justifyContent: 'space-between',
-    left: 0,
-    padding: 12,
-    pointerEvents: 'none',
+    paddingHorizontal: 12,
+    paddingTop: 12,
     position: 'absolute',
-    top: 0,
-    width: width,
     zIndex: 1
   },
 });
