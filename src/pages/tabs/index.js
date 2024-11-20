@@ -3,6 +3,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Home from "./Home";
 import Map from "./Map";
 import Saves from "./Saves";
+import colors from "../../styles/colors";
 
 const Tab = createBottomTabNavigator();
 
@@ -11,6 +12,8 @@ export default function Tabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarActiveTintColor: colors.highlightColor,
+        tabBarInactiveTintColor: colors.secondaryTextColor,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName
 
