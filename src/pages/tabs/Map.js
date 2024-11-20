@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     left: 0,
     padding: 12,
+    pointerEvents: 'none',
     position: 'absolute',
     top: 0,
     width: width,
