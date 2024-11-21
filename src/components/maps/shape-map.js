@@ -3,10 +3,11 @@ import { StyleSheet } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import {
   getBusShape,
-  getStopDetails,
+  getStopsByRouteId,
 } from "../../services/gtfs-api/api.services";
+import StopIcon from "../../../assets/icons/stop.png";
 
-export default function ShapeMap({ shapeId }) {
+export default function ShapeMap({ shapeId, navigation }) {
   const [mapRegion, setMapRegion] = useState({
     latitude: -23.550164466,
     longitude: -46.633664132,
@@ -14,19 +15,7 @@ export default function ShapeMap({ shapeId }) {
     longitudeDelta: 0.0421,
   });
   const [busResponse, setBusResponse] = useState(null);
-
   const [stops, setStops] = useState(null);
-
-  async function getLineStops(routeId) {
-    const stops = await getStopDetails(routeId);
-    setStops(stops);
-  }
-
-  useEffect(() => {
-    if (busResponse) {
-      getLineStops(busResponse.props.route_id);
-    }
-  }, []);
 
   // Converte coordenadas do formato da API para o formato esperado pelo MapView
   const convertCoordinates = (coordinates) =>
@@ -37,15 +26,32 @@ export default function ShapeMap({ shapeId }) {
       }))
     );
 
+  async function getLineStops(routeId) {
+    const stops = await getStopsByRouteId(routeId);
+    setStops(stops);
+  }
+
+  async function onRegionChange(region) {
+    const zoomLevel = Math.log2(360 / region.longitudeDelta);
+    if (zoomLevel >= 15) {
+      getLineStops(busResponse.props.route_id);
+    } else {
+      setStops(null);
+    }
+  }
+
   useEffect(() => {
     let isMounted = true; // Para evitar atualizações em componentes desmontados
     const fetchBusShape = async () => {
       try {
         const response = await getBusShape(shapeId);
+
         if (!isMounted) return; // Evita setState se o componente foi desmontado
+
         const shapes = convertCoordinates(
           response.features[0].geometry.coordinates
         );
+
         setBusResponse({
           shapes,
           props: response.features[0].properties,
@@ -65,7 +71,11 @@ export default function ShapeMap({ shapeId }) {
   }, [shapeId]);
 
   return (
-    <MapView region={mapRegion} style={styles.map}>
+    <MapView
+      region={mapRegion}
+      style={styles.map}
+      onRegionChangeComplete={(region) => onRegionChange(region)}
+    >
       {busResponse &&
         busResponse.shapes.map((polyline, index) => (
           <Polyline

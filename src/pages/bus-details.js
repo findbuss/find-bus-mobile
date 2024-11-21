@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getTrips, getRoute } from "../services/gtfs-api/api.services";
 import Bus from "../components/Bus";
 
-export default function BusDetails() {
+export default function BusDetails({ navigation }) {
   const router = useRoute();
   const { routeId } = router.params;
 
@@ -62,7 +62,11 @@ export default function BusDetails() {
       </View>
 
       {trips && (
-        <ShapeMap style={styles.map} shapeId={trips[sentidoBus].shape_id} />
+        <ShapeMap
+          style={styles.map}
+          shapeId={trips[sentidoBus].shape_id}
+          navigation={navigation}
+        />
       )}
     </SafeAreaView>
   );
