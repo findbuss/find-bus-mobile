@@ -13,7 +13,7 @@ export default function StopsMap({ navigation }) {
 
   async function onRegionChange(region) {
     const zoomLevel = Math.log2(360 / region.longitudeDelta);
-    if (zoomLevel >= 15) {
+    if (zoomLevel >= 14) {
       setArrStops(await stop(region.longitude, region.latitude));
     } else {
       setArrStops(null);
