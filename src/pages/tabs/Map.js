@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import SearchBar from '../../components/SearchBar';
-import colors from '../../styles/colors';
-import StopsMap from '../../components/maps/stops-map';
-import Wrapper from '../../components/Wrapper';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
+import SearchBar from "../../components/SearchBar";
+import colors from "../../styles/colors";
+import StopsMap from "../../components/maps/stops-map";
+import Wrapper from "../../components/Wrapper";
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get("window");
 
 export default function Map({ navigation }) {
   const [busLineState, setBusLineState] = useState([]);
@@ -14,7 +14,7 @@ export default function Map({ navigation }) {
   return (
     <Wrapper>
       <View style={styles.container}>
-      <StopsMap navigation={navigation} />
+        <StopsMap navigation={navigation} />
         <View style={styles.floatingContent}>
           <SearchBar />
         </View>
@@ -26,12 +26,12 @@ export default function Map({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative'
+    position: "relative",
   },
   floatingContent: {
     paddingHorizontal: 12,
     paddingTop: 12,
-    position: 'absolute',
-    zIndex: 1
+    position: "absolute",
+    zIndex: 1,
   },
 });
