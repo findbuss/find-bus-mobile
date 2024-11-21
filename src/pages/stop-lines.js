@@ -31,10 +31,13 @@ export default function StopLines({ navigation }) {
     <SafeAreaView style={styles.container}>
       <SearchBar />
       {details && (
-        <Card>
-          <View>
-            {/* Image */}
-            <Text>{details.properties.stop_name}</Text>
+        <Card style={styles.cardContainer}>
+          <View style={styles.titleContainer}>
+            <Image
+              source={require("../../assets/icons/stop.png")}
+              style={styles.image}
+            />
+            <Text style={styles.title}>{details.properties.stop_name}</Text>
           </View>
           {details.properties.routes.map((busLines, index) => {
             return (
@@ -63,11 +66,26 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 8,
   },
+  cardContainer: {
+    display: "flex",
+    gap: 10,
+  },
+  titleContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 10,
+    width: "100%",
+    marginTop: 15,
+    marginBottom: 5,
+  },
   image: {
     height: 40,
     width: 40,
   },
   title: {
     fontWeight: "bold",
+    fontSize: 16,
   },
 });
