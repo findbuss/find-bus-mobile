@@ -12,6 +12,11 @@ export async function getStopDetails(stopId) {
   return response.data;
 }
 
+export async function getStopsByRouteId(routeId) {
+  const response = await axios.get(`${baseURL}api/stops?route_id=${routeId}`);
+  return response.data;
+}
+
 export async function getTrips(routeId) {
   const response = await axios.get(`${baseURL}api/trips?route_id=${routeId}`);
   return response.data;
