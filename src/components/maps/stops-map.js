@@ -12,7 +12,12 @@ export default function StopsMap({ navigation }) {
   const [arrStops, setArrStops] = useState();
 
   async function onRegionChange(region) {
-    setArrStops(await stop(region.longitude, region.latitude));
+    const zoomLevel = Math.log2(360 / region.longitudeDelta);
+    if (zoomLevel >= 15) {
+      setArrStops(await stop(region.longitude, region.latitude));
+    } else {
+      setArrStops(null);
+    }
   }
 
   useEffect(() => {
@@ -59,5 +64,6 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+    borderRadius: 10,
   },
 });
