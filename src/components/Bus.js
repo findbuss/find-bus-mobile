@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from "../styles/colors";
 
-export default function Bus({ data, onPress }) {
+export default function Bus({ data, onPress, style }) {
   const [saved, setSaved] = useState(false);
 
   console.log(data.route_id);
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <View style={[styles.code, { backgroundColor: data.route_color }]}>
         <Text style={[styles.text, { color: data.route_text_color }]}>
           {data.route_id}
