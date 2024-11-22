@@ -31,10 +31,10 @@ export default function Tabs() {
           return <Ionicons name={iconName} size={size} color={color} />
         }
       })}
-      initialRouteName="Home"
+      initialRouteName="Início"
     >
       <Tab.Screen
-        name="Home"
+        name="Início"
         component={Home}
         // options={{
         //   tabBarIcon: () => {
