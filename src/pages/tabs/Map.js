@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingTop: 12,
     position: "absolute",
+    width: '100%',
     zIndex: 1,
   },
 });
