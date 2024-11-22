@@ -4,13 +4,13 @@ import Wrapper from "../../components/Wrapper";
 import SearchBar from "../../components/SearchBar";
 import ChipBar from "../../components/ChipBar";
 import Card from "../../components/Card";
-import BusMap from "./BusMap";
-import StopMap from "./StopMap";
+import Bus from "../../components/Bus";
+import Stop from "../../components/Stop";
 
 export default function Saves() {
   const [selectedTab, setSelectedTab] = useState(0)
 
-  const data = [
+  const tabs = [
     {
       title: "Linhas"
     },
@@ -19,18 +19,72 @@ export default function Saves() {
     }
   ]
 
+  const buses = [
+    {
+      route_id: "233C-10",
+      shape_id: 59558,
+      route_color: "#FFD100",
+      route_text_color: "#000000",
+      trip_id: "233C-10-0",
+      route_long_name: "Ceret",
+      next_bus: "5min"
+    },
+    {
+      route_id: "407L-10",
+      shape_id: 80728,
+      route_color: "#DA291C",
+      route_text_color: "#FFFFFF",
+      trip_id: "407L-10-0",
+      route_long_name: "Barro Branco",
+      next_bus: "5min"
+    }
+  ]
+
+  const stops = [
+    {
+      stop_id: "233C-10",
+      shape_id: 59558,
+      stop_color: "#FFD100",
+      stop_text_color: "#000000",
+      trip_id: "233C-10-0",
+      stop_long_name: "Ceret",
+      next_bus: "5min"
+    },
+    {
+      stop_id: "407L-10",
+      shape_id: 80728,
+      stop_color: "#DA291C",
+      stop_text_color: "#FFFFFF",
+      trip_id: "407L-10-0",
+      stop_long_name: "Barro Branco",
+      next_bus: "5min"
+    }
+  ]
+
+  let data
+
+  switch (selectedTab) {
+    case 0:
+      data = buses
+      break
+    case 1:
+      data = stops
+  }
+
   return (
     <Wrapper>
       <View style={styles.container}>
         <SearchBar />
-        <ChipBar data={data} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
+        <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
         <Card title="Linhas salvas">
           <View style={styles.itemArea}>
-            {selectedTab === 0 ? (
-              <BusMap/>
-            ) : (
-              <StopMap/>
-            )}
+            {data && data.map((item, i) => (
+              selectedTab === 0 ? (
+                <Bus key={i} data={item} />
+              ) : (
+                <Stop key={i} data={item} />
+              )
+            ))}
           </View>
         </Card>
       </View>
