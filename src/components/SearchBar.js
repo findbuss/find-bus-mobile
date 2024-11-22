@@ -6,7 +6,7 @@ import Avatar from './Avatar'
 
 const { width, height } = Dimensions.get('window')
 
-export default function SearchBar({ children, navigation }) {
+export default function SearchBar({ children, navigation, value, onChange }) {
   const [isClicked, setIsClicked] = useState(false)
 
   return (
@@ -30,6 +30,8 @@ export default function SearchBar({ children, navigation }) {
               style={styles.input}
               placeholder="Pesquisar"
               autoFocus={true}
+              value={value}
+              onChangeText={onChange}
             />
           </View>
           {children}

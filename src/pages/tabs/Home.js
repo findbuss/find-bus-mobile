@@ -82,7 +82,7 @@ export default function Home({ navigation }) {
       <View style={styles.container}>
         <SearchBar navigation={navigation} />
         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-        <Card title="Linhas recentes">
+        <Card title={`${tabs[selectedTab].title} recentes`}>
           <View style={styles.itemArea}>
             {data && data.map((item, i) => {
               switch (selectedTab) {

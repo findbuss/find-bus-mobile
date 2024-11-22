@@ -76,7 +76,7 @@ export default function Saves() {
       <View style={styles.container}>
         <SearchBar />
         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-        <Card title="Linhas salvas">
+        <Card title={`${tabs[selectedTab].title} salvas`}>
           <View style={styles.itemArea}>
             {data && data.map((item, i) => {
               switch (selectedTab) {
