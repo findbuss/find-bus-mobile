@@ -78,13 +78,14 @@ export default function Saves() {
         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
         <Card title="Linhas salvas">
           <View style={styles.itemArea}>
-            {data && data.map((item, i) => (
-              selectedTab === 0 ? (
-                <Bus key={i} data={item} />
-              ) : (
-                <Stop key={i} data={item} />
-              )
-            ))}
+            {data && data.map((item, i) => {
+              switch (selectedTab) {
+                case 0:
+                  return <Bus key={i} data={item} />
+                case 1:
+                  return <Stop key={i} data={item} />
+              }
+            })}
           </View>
         </Card>
       </View>
@@ -96,10 +97,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 12,
-    padding: 12,
+    padding: 12
   },
   itemArea: {
     display: "flex",
-    gap: 12,
-  },
-});
+    gap: 12
+  }
+})
