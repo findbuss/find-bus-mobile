@@ -15,10 +15,8 @@ export default function Bus({ data, onPress }) {
           {data.route_id}
         </Text>
       </View>
-
       <Text style={styles.title}>{data.route_long_name}</Text>
       <Text style={styles.highlightText}>{data.next_bus}</Text>
-
       <TouchableOpacity style={styles.button} onPress={() => setSaved(!saved)}>
         {saved ? (
           <Ionicons style={styles.activedIcon} name={"bookmark"} />

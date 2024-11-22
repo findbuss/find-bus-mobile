@@ -1,13 +1,13 @@
 import { ScrollView, View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import colors from '../styles/colors'
 
-export default function ChipBar({ selectedOption=0, data }) {
+export default function ChipBar({ selectedOption=0, data, onChangeTab }) {
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.container}>
           {data.map((item, i) => (
-            <TouchableOpacity style={selectedOption === i ? styles.activedChip : styles.chip} onPress={() => {item.action}} key={i}>
+            <TouchableOpacity style={selectedOption === i ? styles.activedChip : styles.chip} onPress={() => onChangeTab(i)} key={i}>
               <Text style={selectedOption === i ? styles.activedText : styles.text}>{item.title}</Text>
             </TouchableOpacity>
           ))}

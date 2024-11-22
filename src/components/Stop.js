@@ -3,15 +3,17 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from "../styles/colors";
 
-export default function Stop({ name }) {
+export default function Stop({ data }) {
   const [saved, setSaved] = useState(false);
 
   return (
     <View style={styles.container}>
-      <View style={styles.code}>
-        <Text style={styles.text}>{code}</Text>
+      <View style={[styles.code, { backgroundColor: data.stop_color }]}>
+        <Text style={[styles.text, { color: data.stop_text_color }]}>
+          {data.stop_id}
+        </Text>
       </View>
-      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.title}>{data.stop_long_name}</Text>
       <TouchableOpacity style={styles.button} onPress={() => setSaved(!saved)}>
         {saved ? (
           <Ionicons style={styles.activedIcon} name={"bookmark"} />
@@ -34,10 +36,10 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   code: {
-    backgroundColor: color,
-    borderRadius: 12,
+    borderRadius: 8,
     color: colors.primaryTextColor,
-    padding: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
   text: {
     fontWeight: "bold",
@@ -46,6 +48,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     width: "100%",
   },
+  highlightText: {
+    color: colors.highlightColor,
+    whiteSpace: "nowrap",
+  },
   button: {
     borderRadius: 50,
     display: "flex",
@@ -53,10 +59,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: colors.secondaryTextColor,
-    fontSize: "1.5rem",
+    fontSize: 24,
   },
   activedIcon: {
     color: colors.highlightColor,
-    fontSize: "1.5rem",
+    fontSize: 24,
   },
 });

@@ -1,54 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import Wrapper from "../../components/Wrapper";
 import SearchBar from "../../components/SearchBar";
 import ChipBar from "../../components/ChipBar";
 import Card from "../../components/Card";
-import Bus from "../../components/Bus";
+import BusMap from "./BusMap";
+import StopMap from "./StopMap";
 
-export default function Saves({ navigation }) {
+export default function Saves() {
+  const [selectedTab, setSelectedTab] = useState(0)
+
   const data = [
     {
-      title: "Linhas",
-      action: null,
+      title: "Linhas"
     },
     {
-      title: "Paradas",
-      action: null,
-    },
-  ];
-
-  const buses = [
-    {
-      route_id: "233C-10",
-      shape_id: 59558,
-      route_color: "#FFD100",
-      route_text_color: "#000000",
-      trip_id: "233C-10-0",
-      route_long_name: "Ceret",
-      next_bus: "5min",
-    },
-    {
-      route_id: "407L-10",
-      shape_id: 80728,
-      route_color: "#DA291C",
-      route_text_color: "#FFFFFF",
-      trip_id: "407L-10-0",
-      route_long_name: "Barro Branco",
-      next_bus: "5min",
-    },
-  ];
+      title: "Paradas"
+    }
+  ]
 
   return (
     <Wrapper>
       <View style={styles.container}>
         <SearchBar />
-        <ChipBar data={data} />
+        <ChipBar data={data} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
         <Card title="Linhas salvas">
           <View style={styles.itemArea}>
-            {buses.map((busLine, index) => (
-              <Bus key={index} data={busLine} navigation={navigation} />
-            ))}
+            {selectedTab === 0 ? (
+              <BusMap/>
+            ) : (
+              <StopMap/>
+            )}
           </View>
         </Card>
       </View>
