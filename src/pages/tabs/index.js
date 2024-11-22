@@ -18,7 +18,7 @@ export default function Tabs() {
           let iconName
 
           switch (route.name) {
-            case 'Home':
+            case 'Início':
               iconName = focused ? 'search': 'search-outline'
               break
             case 'Explorar':
