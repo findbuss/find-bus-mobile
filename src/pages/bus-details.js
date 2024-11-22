@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getTrips, getRoute } from "../services/gtfs-api/api.services";
 import Bus from "../components/Bus";
 
-export default function BusDetails() {
+export default function BusDetails({ navigation }) {
   const router = useRoute();
   const { routeId } = router.params;
 
@@ -36,6 +36,7 @@ export default function BusDetails() {
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar />
+
       <View style={styles.lineDataContainer}>
         {trips &&
           route &&
@@ -52,16 +53,20 @@ export default function BusDetails() {
                   shape_id: trip.shape_id,
                   route_color: `#${route.route_color}`,
                   route_text_color: `#${route.route_text_color}`,
-                  trip_id: "233C-10-0",
                   route_long_name: trip.trip_headsign,
-                  next_bus: "5min",
                 }}
+                style={index === sentidoBus ? { backgroundColor: "white" } : {}}
               />
             );
           })}
       </View>
+
       {trips && (
-        <ShapeMap style={styles.map} shapeId={trips[sentidoBus].shape_id} />
+        <ShapeMap
+          style={styles.map}
+          shapeId={trips[sentidoBus].shape_id}
+          navigation={navigation}
+        />
       )}
     </SafeAreaView>
   );

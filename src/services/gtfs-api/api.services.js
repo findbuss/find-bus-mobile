@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.80.189:5000/";
+const baseURL = `http://192.168.1.102:5000/`;
 
 export async function getBusShape(shapeID) {
   const response = await axios.get(`${baseURL}api/shapes?shape_id=${shapeID}`);
@@ -9,6 +9,11 @@ export async function getBusShape(shapeID) {
 
 export async function getStopDetails(stopId) {
   const response = await axios.get(`${baseURL}api/stops?stop_id=${stopId}`);
+  return response.data;
+}
+
+export async function getStopsByRouteId(routeId) {
+  const response = await axios.get(`${baseURL}api/stops?route_id=${routeId}`);
   return response.data;
 }
 
