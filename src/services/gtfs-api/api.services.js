@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const baseURL = `http://192.168.1.107:5000/`;
+const baseURL = process.env.EXPO_PUBLIC_GTFS_API_URL;
+
+console.log(baseURL);
 
 export async function getBusShape(shapeID) {
   const response = await axios.get(`${baseURL}api/shapes?shape_id=${shapeID}`);
