@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Wrapper from "../../components/Wrapper";
 import SearchBar from "../../components/SearchBar";
 import ChipBar from "../../components/ChipBar";
 import Card from "../../components/Card";
+import { isAuth } from "../../utils";
 import Bus from "../../components/Bus";
 import Stop from "../../components/Stop";
+import colors from "../../styles/colors";
 
 export default function Saves() {
   const [selectedTab, setSelectedTab] = useState(0)
@@ -76,16 +78,20 @@ export default function Saves() {
       <View style={styles.container}>
         <SearchBar />
         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-        <Card title={`${tabs[selectedTab].title} salvas`}>
+        <Card title={isAuth && `${tabs[selectedTab].title} salvas`}>
           <View style={styles.itemArea}>
-            {data && data.map((item, i) => {
-              switch (selectedTab) {
-                case 0:
-                  return <Bus key={i} data={item} />
-                case 1:
-                  return <Stop key={i} data={item} />
-              }
-            })}
+            {isAuth ? (
+              data && data.map((item, i) => {
+                switch (selectedTab) {
+                  case 0:
+                    return <Bus key={i} data={item} />
+                  case 1:
+                    return <Stop key={i} data={item} />
+                }
+              })
+            ) : (
+              <Text style={styles.paragraph}>Você precisa estar conectado para salvar algo.</Text>
+            )}
           </View>
         </Card>
       </View>
@@ -102,5 +108,10 @@ const styles = StyleSheet.create({
   itemArea: {
     display: "flex",
     gap: 12
+  },
+  paragraph: {
+    color: colors.secondaryTextColor,
+    fontSize: 14,
+    textAlign: 'center'
   }
 })

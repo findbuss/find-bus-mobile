@@ -19,15 +19,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     flex: 1,
     gap: 16,
+    paddingTop: 12
   },
   title: {
     color: colors.primaryTextColor,
     fontWeight: "bold",
-    paddingHorizontal: 12,
-    paddingTop: 12,
+    paddingHorizontal: 12
   },
   contentArea: {
     paddingBottom: 12,
-    paddingHorizontal: 12,
-  },
-});
+    paddingHorizontal: 12
+  }
+})
