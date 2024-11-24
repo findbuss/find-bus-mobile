@@ -1,2 +1,2 @@
-export const isAuth = true
+export const isAuth = false
 export const username = 'João'
