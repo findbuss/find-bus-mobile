@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     outline: "none",
     paddingRight: 12,
     paddingVertical: 12,
-    width: "100%",
+    flex: 1,
   },
   search: {
     backgroundColor: colors.primaryBackgroundColor,

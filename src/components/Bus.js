@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    width: "100%",
+    flex: 1,
   },
   highlightText: {
     color: colors.highlightColor,
