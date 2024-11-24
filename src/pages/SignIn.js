@@ -5,7 +5,7 @@ import Button from '../components/Button'
 import Link from '../components/Link'
 import colors from '../styles/colors'
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
   return (
     <Wrapper>
       <View style={styles.container}>
@@ -13,9 +13,7 @@ export default function SignIn() {
         <Input placeholder='E-mail'/>
         <Input placeholder='Senha'/>
         <Button>Entrar</Button>
-        <Link to={{ screen: 'SignUp' }}>
-          Criar uma nova conta
-        </Link>
+        <Text style={styles.paragraph}>Ainda não tem uma conta? <Link to='SignUp' navigation={navigation}>Criar uma nova conta</Link></Text>
       </View>
     </Wrapper>
   )
@@ -32,6 +30,11 @@ const styles = StyleSheet.create({
     color: colors.primaryTextColor,
     fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  paragraph: {
+    color: colors.secondaryTextColor,
+    fontSize: 14,
     textAlign: 'center'
   }
 })

@@ -1,18 +1,20 @@
-import { StyleSheet } from 'react-native'
-import { Link } from '@react-navigation/native'
+import { TouchableWithoutFeedback, Text, StyleSheet } from 'react-native'
 import colors from '../styles/colors'
 
-export default function LinkTo({ children, ...rest }) {
+export default function Link({ children, to, navigation}) {
   return (
-    <Link style={styles.link} {...rest}>
-      {children}
-    </Link>
+    <TouchableWithoutFeedback style={styles.link} onPress={() => navigation.navigate(to)}>
+      <Text style={styles.linkText}>
+        {children}
+      </Text>
+    </TouchableWithoutFeedback>
   )
 }
 
 const styles = StyleSheet.create({
-  link: {
+  linkText: {
     color: colors.highlightColor,
+    fontSize: 14,
     textAlign: 'center'
   }
 })

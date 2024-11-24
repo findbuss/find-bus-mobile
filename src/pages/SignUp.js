@@ -5,7 +5,7 @@ import Button from '../components/Button'
 import Link from '../components/Link'
 import colors from '../styles/colors'
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   return (
     <Wrapper>
       <View style={styles.container}>
@@ -14,7 +14,7 @@ export default function SignUp() {
         <Input placeholder='E-mail'/>
         <Input placeholder='Senha'/>
         <Button>Cadastrar</Button>
-        <Text style={styles.paragraph}>Já tem uma conta? <Link to={{ screen: 'SignIn' }}>Criar uma nova conta</Link></Text>
+        <Text style={styles.paragraph}>Já tem uma conta? <Link to='SignIn' navigation={navigation}>Entrar na conta</Link></Text>
       </View>
     </Wrapper>
   )
