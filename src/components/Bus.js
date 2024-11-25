@@ -6,8 +6,6 @@ import colors from "../styles/colors";
 export default function Bus({ data, onPress, style }) {
   const [saved, setSaved] = useState(false);
 
-  console.log(data.route_id);
-
   return (
     <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <View style={[styles.code, { backgroundColor: data.route_color }]}>
