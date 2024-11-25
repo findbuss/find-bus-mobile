@@ -1,6 +1,6 @@
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import colors from '../styles/colors'
-import { isAuth, username } from '../utils/index'
+import { isAuth, username } from '../utils/auth'
 import Ionicons from "react-native-vector-icons/Ionicons"
 
 export default function Avatar({ navigation }) {

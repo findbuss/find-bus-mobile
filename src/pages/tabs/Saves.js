@@ -4,7 +4,7 @@ import Wrapper from "../../components/Wrapper";
 import SearchBar from "../../components/SearchBar";
 import ChipBar from "../../components/ChipBar";
 import Card from "../../components/Card";
-import { isAuth } from "../../utils";
+import { isAuth } from "../../utils/auth";
 import Bus from "../../components/Bus";
 import Stop from "../../components/Stop";
 import colors from "../../styles/colors";
