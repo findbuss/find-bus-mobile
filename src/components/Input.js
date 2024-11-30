@@ -10,8 +10,10 @@ export default function Input({ ...rest }) {
 const styles = StyleSheet.create({
   input: {
     backgroundColor: colors.secondaryBackgroundColor,
-    border: '1px solid ' + colors.borderColor,
+    borderColor: colors.borderColor,
     borderRadius: 12,
+    borderStyle: 'solid',
+    borderWidth: 1,
     fontSize: 14,
     outlineColor: colors.highlightColor,
     placeholderTextColor: colors.secondaryTextColor,

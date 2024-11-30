@@ -85,8 +85,10 @@ const styles = StyleSheet.create({
   selectedContainer: {
     alignItems: "center",
     backgroundColor: colors.secondaryBackgroundColor,
-    border: "1px solid " + colors.borderColor,
+    borderColor: colors.borderColor,
     borderRadius: 12,
+    borderStyle: 'solid',
+    borderWidth: 1,
     display: "flex",
     flexDirection: "row",
     gap: 8,
@@ -98,8 +100,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     backgroundColor: colors.secondaryBackgroundColor,
-    border: "1px solid " + colors.borderColor,
+    borderColor: colors.borderColor,
     borderRadius: 12,
+    borderStyle: 'solid',
+    borderWidth: 1,
     display: "flex",
     flexDirection: "row",
     gap: 8,

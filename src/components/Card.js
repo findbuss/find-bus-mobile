@@ -15,8 +15,10 @@ export default function Card({ title, children, style }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.secondaryBackgroundColor,
-    border: "1px solid " + colors.borderColor,
+    borderColor: colors.borderColor,
     borderRadius: 12,
+    borderStyle: 'solid',
+    borderWidth: 1,
     flex: 1,
     gap: 16,
     paddingTop: 12

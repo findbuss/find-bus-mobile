@@ -32,9 +32,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8
   },
   chip: {
-    backgroundColor: colors.secondaryBackgroundColor,
-    border: '1px solid ' + colors.borderColor,
+    backgroundColor: 'transparent',
+    borderColor: colors.borderColor,
     borderRadius: 24,
+    borderStyle: 'solid',
+    borderWidth: 1,
     display: 'flex',
     paddingHorizontal: 12,
     paddingVertical: 8
