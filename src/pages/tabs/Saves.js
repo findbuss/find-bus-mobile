@@ -95,9 +95,9 @@ export default function Saves({ navigation }) {
         <Wrapper>
             <View style={styles.container}>
                 <SearchBar navigation={navigation} />
-                <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-                <Card title={userId && `${tabs[selectedTab].title} salvas`}>
+                <Card title={userId && `Salvos`}>
                     <View style={styles.itemArea}>
+                        <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
                         {userId ? (
                             data &&
                             data.map((item, i) => {
