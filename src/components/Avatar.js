@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import colors from '../styles/colors'
-import { isAuth, username } from '../utils/auth'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as SecureStore from 'expo-secure-store'
 
 export default function Avatar({ navigation }) {
+  const username = 'João'
+
   const [userId, setUserId] = useState(null)
 
   const loadUserId = async () => {
