@@ -16,7 +16,7 @@ export default function Map({ navigation }) {
       <View style={styles.container}>
         <StopsMap navigation={navigation} />
         <View style={styles.floatingContent}>
-          <SearchBar />
+          <SearchBar navigation={navigation} />
         </View>
       </View>
     </Wrapper>

@@ -9,7 +9,7 @@ import Bus from "../../components/Bus";
 import Stop from "../../components/Stop";
 import colors from "../../styles/colors";
 
-export default function Saves() {
+export default function Saves({ navigation }) {
   const [selectedTab, setSelectedTab] = useState(0)
 
   const tabs = [
@@ -29,7 +29,7 @@ export default function Saves() {
       route_text_color: "#000000",
       trip_id: "233C-10-0",
       route_long_name: "Ceret",
-      next_bus: "5min"
+      next_bus: "5 min"
     },
     {
       route_id: "407L-10",
@@ -38,7 +38,7 @@ export default function Saves() {
       route_text_color: "#FFFFFF",
       trip_id: "407L-10-0",
       route_long_name: "Barro Branco",
-      next_bus: "5min"
+      next_bus: "5 min"
     }
   ]
 
@@ -49,8 +49,7 @@ export default function Saves() {
       stop_color: "#FFD100",
       stop_text_color: "#000000",
       trip_id: "233C-10-0",
-      stop_long_name: "Ceret",
-      next_bus: "5min"
+      stop_long_name: "Ceret"
     },
     {
       stop_id: "407L-10",
@@ -58,8 +57,7 @@ export default function Saves() {
       stop_color: "#DA291C",
       stop_text_color: "#FFFFFF",
       trip_id: "407L-10-0",
-      stop_long_name: "Barro Branco",
-      next_bus: "5min"
+      stop_long_name: "Barro Branco"
     }
   ]
 
@@ -76,7 +74,7 @@ export default function Saves() {
   return (
     <Wrapper>
       <View style={styles.container}>
-        <SearchBar />
+        <SearchBar navigation={navigation} />
         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
         <Card title={isAuth && `${tabs[selectedTab].title} salvas`}>
           <View style={styles.itemArea}>
