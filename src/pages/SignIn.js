@@ -35,7 +35,14 @@ export default function SignIn({ navigation }) {
       <View style={styles.container}>
         <Text style={styles.title}>Fazer entrada</Text>
         <Input placeholder='E-mail' value={email} onChangeText={setEmail}/>
-        <Input placeholder='Senha' value={password} onChangeText={setPassword}/>
+        <Input
+          placeholder='Senha'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+          autoCorrect={false}
+          autoCapitalize="none"
+        />
         <Button onPress={handleLogin}>Entrar</Button>
         <Text style={styles.paragraph}>Ainda não tem uma conta? <Link to='SignUp' navigation={navigation}>Criar uma nova conta</Link></Text>
       </View>

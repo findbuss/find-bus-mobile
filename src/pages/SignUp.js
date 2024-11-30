@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import Wrapper from '../components/Wrapper'
 import Input from '../components/Input'
@@ -6,13 +7,24 @@ import Link from '../components/Link'
 import colors from '../styles/colors'
 
 export default function SignUp({ navigation }) {
+  const [displayName, setDisplayName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   return (
     <Wrapper>
       <View style={styles.container}>
         <Text style={styles.title}>Fazer cadastro</Text>
-        <Input placeholder='Nome'/>
-        <Input placeholder='E-mail'/>
-        <Input placeholder='Senha'/>
+        <Input placeholder='Nome' value={displayName} onChangeText={setDisplayName}/>
+        <Input placeholder='E-mail' value={email} onChangeText={setEmail}/>
+        <Input
+          placeholder='Senha'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+          autoCorrect={false}
+          autoCapitalize="none"
+        />
         <Button>Cadastrar</Button>
         <Text style={styles.paragraph}>Já tem uma conta? <Link to='SignIn' navigation={navigation}>Entrar na conta</Link></Text>
       </View>
