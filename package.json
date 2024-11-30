@@ -12,6 +12,7 @@
     "@react-navigation/stack": "^7.0.3",
     "axios": "^1.7.7",
     "expo": "^52.0.11",
+    "expo-secure-store": "^14.0.0",
     "expo-status-bar": "~2.0.0",
     "my-app": "file:",
     "p-debounce": "^4.0.0",
