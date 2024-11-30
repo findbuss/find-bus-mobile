@@ -33,7 +33,7 @@ export default function Avatar({ navigation }) {
         </TouchableOpacity>
     ) : (
         <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('SignIn')}>
-            <Ionicons style={styles.icon} name="person" />
+            <Ionicons style={styles.icon} name='person' />
         </TouchableOpacity>
     )
 }
