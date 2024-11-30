@@ -19,7 +19,7 @@ export default function Tabs() {
 
           switch (route.name) {
             case 'Início':
-              iconName = focused ? 'search': 'search-outline'
+              iconName = focused ? 'home': 'home-outline'
               break
             case 'Explorar':
               iconName = focused? 'location': 'location-outline'
@@ -33,33 +33,9 @@ export default function Tabs() {
       })}
       initialRouteName="Início"
     >
-      <Tab.Screen
-        name="Início"
-        component={Home}
-        // options={{
-        //   tabBarIcon: () => {
-        //     return <Text>📆</Text>;
-        //   },
-        // }}
-      />
-      <Tab.Screen
-        name="Explorar"
-        component={Map}
-        // options={{
-        //   tabBarIcon: () => {
-        //     return <Text>📆</Text>;
-        //   },
-        // }}
-      />
-      <Tab.Screen
-        name="Salvos"
-        component={Saves}
-        // options={{
-        //   tabBarIcon: () => {
-        //     return <Text>📆</Text>;
-        //   },
-        // }}
-      />
+      <Tab.Screen name="Início" component={Home}/>
+      <Tab.Screen name="Explorar" component={Map}/>
+      <Tab.Screen name="Salvos" component={Saves}/>
     </Tab.Navigator>
-  );
+  )
 }
