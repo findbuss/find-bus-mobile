@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     flex: 1,
-    gap: 16,
+    gap: 12,
     paddingTop: 12
   },
   title: {
