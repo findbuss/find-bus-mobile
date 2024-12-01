@@ -1,9 +1,16 @@
-import { Alert, View, StyleSheet } from 'react-native'
+import { Alert, View, Text, StyleSheet } from 'react-native'
 import Wrapper from '../components/Wrapper'
 import Button from '../components/Button'
+import Card from '../components/Card'
+import Avatar from '../components/Avatar'
 import * as SecureStore from 'expo-secure-store'
+import colors from '../styles/colors'
 
 export default function Profile({ navigation }) {
+    const data = {
+        name: 'João'
+    }
+
     const handleLogout = async () => {
         try {
             await SecureStore.deleteItemAsync('user_id')
@@ -18,7 +25,17 @@ export default function Profile({ navigation }) {
     return (
         <Wrapper>
             <View style={styles.container}>
-                <Button onPress={handleLogout}>Fazer logout</Button>
+                <View style={styles.contentArea}>
+                    <Avatar username='João Silva' size={96} />
+                    <Text style={styles.title}>{data.name}</Text>
+                </View>
+                <Card title='Configurações'>
+                    <View style={styles.cardContentArea}>
+                        <Button variant='error' onPress={handleLogout}>
+                            Sair
+                        </Button>
+                    </View>
+                </Card>
             </View>
         </Wrapper>
     )
@@ -26,8 +43,23 @@ export default function Profile({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
+        flex: 1,
         gap: 12,
         padding: 12
+    },
+    contentArea: {
+        alignItems: 'center',
+        display: 'flex',
+        gap: 8
+    },
+    title: {
+        color: colors.primaryTextColor,
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    cardContentArea: {
+        flex: 1,
+        justifyContent: 'space-between'
     }
 })
