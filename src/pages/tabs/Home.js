@@ -76,7 +76,7 @@ export default function Home({ navigation }) {
                 <Card title={`Recentes`}>
                     <View style={styles.itemArea}>
                         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-                        {data &&
+                        {data ? (
                             data.map((item, i) => {
                                 switch (selectedTab) {
                                     case 0:
@@ -84,7 +84,10 @@ export default function Home({ navigation }) {
                                     case 1:
                                         return <Stop key={i} data={item} />
                                 }
-                            })}
+                            })
+                        ) : (
+                            <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
+                        )}
                     </View>
                 </Card>
             </View>

@@ -99,15 +99,18 @@ export default function Saves({ navigation }) {
                     <View style={styles.itemArea}>
                         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
                         {userId ? (
-                            data &&
-                            data.map((item, i) => {
-                                switch (selectedTab) {
-                                    case 0:
-                                        return <Bus key={i} data={item} />
-                                    case 1:
-                                        return <Stop key={i} data={item} />
-                                }
-                            })
+                            data ? (
+                                data.map((item, i) => {
+                                    switch (selectedTab) {
+                                        case 0:
+                                            return <Bus key={i} data={item} />
+                                        case 1:
+                                            return <Stop key={i} data={item} />
+                                    }
+                                })
+                            ) : (
+                                <Text style={styles.paragraph}>Nenhum item salvo foi encontrado.</Text>
+                            )
                         ) : (
                             <Text style={styles.paragraph}>Você precisa estar conectado para salvar algo.</Text>
                         )}
