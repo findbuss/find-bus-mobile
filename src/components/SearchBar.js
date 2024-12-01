@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { View, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import colors from '../styles/colors'
@@ -6,6 +6,7 @@ import Avatar from './Avatar'
 import { getRoute } from '../services/gtfs-api/api.services'
 import pDebounce from 'p-debounce'
 import Bus from './Bus'
+import * as SecureStore from 'expo-secure-store'
 
 const { width, height } = Dimensions.get('window')
 
@@ -24,12 +25,40 @@ export default function SearchBar({ navigation }) {
         console.log(res)
     }
 
+    const [userId, setUserId] = useState(null)
+
+    const loadUserId = async () => {
+        try {
+            const storedUserId = await SecureStore.getItemAsync('user_id')
+
+            if (storedUserId) {
+                setUserId(storedUserId)
+            } else {
+                console.log('Nenhuma credencial encontrada no Secure Store')
+            }
+        } catch (error) {
+            console.error('Erro ao recuperar o ID do usuário', error)
+        }
+    }
+
+    useEffect(() => {
+        loadUserId()
+    }, [])
+
     return (
         <>
             <View style={isClicked ? styles.selectedContainer : styles.container}>
                 <Ionicons style={styles.icon} name='search-outline' />
                 <TextInput style={styles.input} placeholder='Pesquisar' onFocus={() => setIsClicked(true)} />
-                <Avatar navigation={navigation} />
+                <TouchableOpacity onPress={() => navigation.navigate(userId ? 'Profile' : 'SignIn')}>
+                    {userId ? (
+                        <Avatar username='João Silva' />
+                    ) : (
+                        <View style={styles.user}>
+                            <Ionicons style={styles.userIcon} name='person' />
+                        </View>
+                    )}
+                </TouchableOpacity>
             </View>
             {isClicked && (
                 <View style={styles.search}>
@@ -119,5 +148,17 @@ const styles = StyleSheet.create({
         top: 0,
         width: width,
         zIndex: 2
+    },
+    user: {
+        alignItems: 'center',
+        backgroundColor: colors.tertiaryBackgroundColor,
+        borderRadius: 50,
+        height: 32,
+        justifyContent: 'center',
+        width: 32
+    },
+    userIcon: {
+        color: colors.secondaryTextColor,
+        fontSize: 16
     }
 })

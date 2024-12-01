@@ -1,69 +1,41 @@
-import { useState, useEffect } from 'react'
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { Image, View, Text, StyleSheet } from 'react-native'
 import colors from '../styles/colors'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import * as SecureStore from 'expo-secure-store'
 
-export default function Avatar({ navigation }) {
-    const username = 'João'
-
-    const [userId, setUserId] = useState(null)
-
-    const loadUserId = async () => {
-        try {
-            const storedUserId = await SecureStore.getItemAsync('user_id')
-
-            if (storedUserId) {
-                setUserId(storedUserId)
-            } else {
-                console.log('Nenhuma credencial encontrada no Secure Store')
-            }
-        } catch (error) {
-            console.error('Erro ao recuperar o ID do usuário', error)
-        }
+export default function Avatar({ imageURL, username, size = 32 }) {
+    const getInitials = (name) => {
+        if (!name) return ''
+        const nameParts = name.split(' ')
+        return nameParts
+            .map((part) => part[0])
+            .join('')
+            .toUpperCase()
     }
 
-    useEffect(() => {
-        loadUserId()
-    }, [])
+    const initials = getInitials(username)
 
-    return userId ? (
-        <TouchableOpacity style={styles.background} onPress={() => navigation.navigate('Profile')}>
-            <Text style={styles.defaultText}>{username[0]}</Text>
-        </TouchableOpacity>
+    return imageURL ? (
+        <Image source={{ uri: imageURL }} style={[styles.image, { width: size, height: size }]} />
     ) : (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('SignIn')}>
-            <Ionicons style={styles.icon} name='person' />
-        </TouchableOpacity>
+        <View style={[styles.initialsContainer, { width: size, height: size }]}>
+            <Text style={[styles.initials, { fontSize: Math.max(size / 2, 14) }]}>{initials || '?'}</Text>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    initialsContainer: {
         alignItems: 'center',
-        aspectRatio: '1/1',
-        backgroundColor: colors.tertiaryBackgroundColor,
-        borderRadius: '50%',
-        display: 'flex',
-        height: 32,
-        justifyContent: 'center'
-    },
-    background: {
-        alignItems: 'center',
-        aspectRatio: '1/1',
         backgroundColor: colors.highlightColor,
-        borderRadius: '50%',
-        display: 'flex',
-        height: 32,
-        justifyContent: 'center'
+        borderRadius: 50,
+        justifyContent: 'center',
+        overflow: 'hidden'
     },
-    defaultText: {
+    initials: {
         color: colors.secondaryBackgroundColor,
-        fontSize: 16,
         fontWeight: 'bold'
     },
-    icon: {
-        color: colors.secondaryTextColor,
-        fontSize: 16
+    image: {
+        borderRadius: 50,
+        resizeMode: 'cover'
     }
 })
