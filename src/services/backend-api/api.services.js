@@ -17,6 +17,22 @@ export async function loginUser(email, senha) {
   }
 }
 
+export async function registerUser(displayName, email, senha) {
+  console.log("teste2");
+  try {
+    const res = await axios.post(`${baseURL}usuario`, {
+      nome: displayName,
+      email,
+      senha,
+    });
+    return res.data.id_usuario;
+  } catch (error) {
+    console.log(error);
+
+    return false;
+  }
+}
+
 export function getBusRoutes(userId) {}
 
 export function setBusRoute(userId, routeId) {}
