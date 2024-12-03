@@ -1,3 +1,22 @@
+import axios from "axios";
+
+const baseURL = process.env.EXPO_PUBLIC_DATABASE_API_URL;
+
+export async function loginUser(email, senha) {
+  console.log("teste2");
+  try {
+    const res = await axios.post(`${baseURL}login`, {
+      email,
+      senha,
+    });
+    return res.data.usuario.id_usuario;
+  } catch (error) {
+    console.log(error);
+
+    return false;
+  }
+}
+
 export function getBusRoutes(userId) {}
 
 export function setBusRoute(userId, routeId) {}
