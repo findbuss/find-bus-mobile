@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import { Alert, Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import { Button, Input, Link, Wrapper } from '../../components'
 import { colors } from '../../styles'
-import { registerUser } from '../../services/backend-api/api.services'
-import * as SecureStore from 'expo-secure-store'
 import { useNavigation } from '@react-navigation/native'
 import { AuthNavigationProp } from '../../navigation/AuthStackParamList'
 
@@ -14,25 +12,10 @@ export function SignUpScreen() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    async function handleRegister() {
-        console.log(displayName, email, password)
-        const userId = await registerUser(displayName, email, password)
-        console.log(userId)
+    const registerUser = () => {}
 
-        if (userId) {
-            try {
-                await SecureStore.setItemAsync('user_id', userId.toString())
-                console.log('Login bem-sucedido!')
-                Alert.alert('Cadastro bem-sucedido!')
-
-                navigation.navigate('SignIn')
-            } catch (error) {
-                console.error('Erro ao salvar credenciais', error)
-                Alert.alert('Erro', 'Houve um problema ao tentar fazer registro.')
-            }
-        } else {
-            Alert.alert('Erro', 'Credenciais inválidas.')
-        }
+    function handleRegister() {
+        navigation.navigate('SignIn')
     }
 
     return (
