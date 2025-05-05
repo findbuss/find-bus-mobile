@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Bus, Card, ChipBar, Header, Stop, Wrapper } from '../../../components'
-import { colors } from '../../../styles/colors'
-import { BusType } from '../../../components/Bus/Bus.types'
-import { StopType } from '../../../components/Stop/Stop.types'
+import { Bus, Card, ChipBar, Header, Stop, Wrapper } from '../'
+import { colors } from '../../styles/colors'
+import { BusType } from '../Bus/Bus.types'
+import { StopType } from '../Stop/Stop.types'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { TabsParamList } from '../../navigation/TabsParamList'
 
-export function SavesScreen() {
-    const [selectedTab, setSelectedTab] = useState(0)
+export function ListWrapper() {
+    const route = useRoute<RouteProp<TabsParamList, 'Recentes' | 'Salvos'>>()
+    const { tabType } = route.params || {}
+
+    const [selectedTab, setSelectedTab] = useState<number>(0)
 
     const tabs = [
         {
@@ -16,6 +21,8 @@ export function SavesScreen() {
             title: 'Paradas'
         }
     ]
+
+    const getItems = () => {}
 
     const buses: BusType[] = [
         {
@@ -49,7 +56,7 @@ export function SavesScreen() {
         }
     ]
 
-    const getItems = () => {
+    const renderItems = () => {
         switch (selectedTab) {
             case 0:
                 return buses.map((bus, i) => (
@@ -62,19 +69,19 @@ export function SavesScreen() {
         }
     }
 
-    const items = getItems() || []
+    const items = renderItems() || []
 
     return (
         <Wrapper>
             <View style={styles.container}>
                 <Header />
-                <Card title='Salvos'>
+                <Card title={tabType === 'recents' ? 'Recentes' : 'Salvos'}>
                     <View style={styles.itemArea}>
                         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
                         {items.length > 0 ? (
                             items
                         ) : (
-                            <Text style={styles.paragraph}>Nenhum item salvo foi encontrado.</Text>
+                            <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
                         )}
                     </View>
                 </Card>
