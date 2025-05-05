@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MapScreen, RecentsScreen, SavesScreen } from '../screens/tabs'
+import { MapScreen } from '../screens/tabs'
 import { colors } from '../styles'
 import { Icon } from '../components/Icon/Icon'
+import { ListWrapper } from '../components'
 
 const Tab = createBottomTabNavigator()
 
@@ -32,8 +33,8 @@ export function Tabs() {
             initialRouteName='Início'
         >
             <Tab.Screen name='Início' component={MapScreen} />
-            <Tab.Screen name='Recentes' component={RecentsScreen} />
-            <Tab.Screen name='Salvos' component={SavesScreen} />
+            <Tab.Screen name='Recentes' component={ListWrapper} initialParams={{ tabType: 'recents' }} />
+            <Tab.Screen name='Salvos' component={ListWrapper} initialParams={{ tabType: 'saves' }} />
         </Tab.Navigator>
     )
 }

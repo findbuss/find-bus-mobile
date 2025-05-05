@@ -6,7 +6,8 @@ import { BusType } from '../../components/Bus/Bus.types'
 import { StopType } from '../../components/Stop/Stop.types'
 
 export function SearchScreen() {
-    const [selectedTab, setSelectedTab] = useState(0)
+    const [query, setQuery] = useState<string>('')
+    const [selectedTab, setSelectedTab] = useState<number>(0)
 
     const tabs = [
         {
@@ -49,6 +50,9 @@ export function SearchScreen() {
         }
     ]
 
+    const getStops = () => {}
+    const getLines = () => {}
+
     const getItems = () => {
         switch (selectedTab) {
             case 0:
@@ -67,7 +71,7 @@ export function SearchScreen() {
     return (
         <Wrapper>
             <View style={styles.container}>
-                <SearchBar />
+                <SearchBar value={query} onChangeText={(value) => setQuery(value)} />
                 <Card title='Pesquisa'>
                     <View style={styles.itemArea}>
                         <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
