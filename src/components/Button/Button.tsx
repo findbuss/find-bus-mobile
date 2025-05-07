@@ -16,7 +16,7 @@ export function Button({ variant = 'filled', children, onPress }: ButtonProps) {
             buttonTextColor = colors.primaryText
             break
         case 'ghost':
-            buttonBackgroundColor = colors.negative
+            buttonBackgroundColor = 'transparent'
             buttonTextColor = colors.secondaryBackground
             break
         case 'negative':
