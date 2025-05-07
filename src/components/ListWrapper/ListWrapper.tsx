@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Bus, Card, ChipBar, Header, Stop, Wrapper } from '../'
+import { Bus, Card, ChipBar, Header, Stop, Wrapper } from '../../components'
 import { colors } from '../../styles/colors'
 import { BusType } from '../Bus/Bus.types'
 import { StopType } from '../Stop/Stop.types'

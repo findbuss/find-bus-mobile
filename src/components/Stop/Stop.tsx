@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         flex: 1
     },
-    highlightText: {
-        color: colors.highlight
-    },
     button: {
         borderRadius: 50,
         display: 'flex',

@@ -4,7 +4,7 @@ import { CardProps } from './Card.types'
 
 export function Card({ title, children }: CardProps) {
     return (
-        <View style={[styles.container]}>
+        <View style={styles.container}>
             {title && <Text style={styles.title}>{title}</Text>}
             <ScrollView>
                 <View style={styles.contentArea}>{children}</View>

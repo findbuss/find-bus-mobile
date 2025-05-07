@@ -11,7 +11,7 @@ export function Bus({ data, saved, onPress, onToggleSave }: BusProps) {
     }
 
     return (
-        <TouchableOpacity style={[styles.container]} onPress={onPress}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={[styles.code, { backgroundColor: data.route_color }]}>
                 <Text style={[styles.text, { color: data.route_text_color }]}>{data.route_id}</Text>
             </View>
