@@ -1,14 +1,12 @@
-import { View, ScrollView, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { colors } from '../../styles/colors'
 import { CardProps } from './Card.types'
 
 export function Card({ title, children }: CardProps) {
     return (
         <View style={styles.container}>
-            {title && <Text style={styles.title}>{title}</Text>}
-            <ScrollView>
-                <View style={styles.contentArea}>{children}</View>
-            </ScrollView>
+            {title && <Text style={styles.title}>{title}</Text>} 
+            <View style={styles.contentArea}>{children}</View>
         </View>
     )
 }

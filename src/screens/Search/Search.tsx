@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, StyleSheet } from 'react-native'
 import { Bus, Card, ChipBar, SearchBar, Stop, Wrapper } from '../../components'
 import { colors } from '../../styles/colors'
 import { BusType } from '../../components/Bus/Bus.types'
@@ -73,14 +73,17 @@ export function SearchScreen() {
             <View style={styles.container}>
                 <SearchBar value={query} onChangeText={(value) => setQuery(value)} />
                 <Card title='Pesquisa'>
-                    <View style={styles.itemArea}>
-                        <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-                        {items.length > 0 ? (
-                            items
-                        ) : (
-                            <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
-                        )}
-                    </View>
+                    <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
+                    <ScrollView>
+                        <View style={styles.itemArea}>
+                            
+                            {items.length > 0 ? (
+                                items
+                            ) : (
+                                <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
+                            )}
+                        </View>
+                    </ScrollView>
                 </Card>
             </View>
         </Wrapper>
