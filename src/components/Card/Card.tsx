@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12
     },
     contentArea: {
+        flex: 1,
+        gap: 12,
         paddingBottom: 12,
         paddingHorizontal: 12
     }
