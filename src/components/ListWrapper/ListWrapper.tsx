@@ -76,14 +76,16 @@ export function ListWrapper() {
             <View style={styles.container}>
                 <Header />
                 <Card title={tabType === 'recents' ? 'Recentes' : 'Salvos'}>
-                    <View style={styles.itemArea}>
-                        <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-                        {items.length > 0 ? (
-                            items
-                        ) : (
-                            <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
-                        )}
-                    </View>
+                    <ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
+                    <ScrollView>
+                        <View style={styles.itemArea}>
+                            {items.length > 0 ? (
+                                items
+                            ) : (
+                                <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
+                            )}
+                        </View>
+                    </ScrollView>
                 </Card>
             </View>
         </Wrapper>
