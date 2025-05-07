@@ -1,5 +1,5 @@
 import { AuthProvider } from './src/contexts/AuthContext'
-import { Routes } from './src/routes/Tabs'
+import { Routes } from './src/routes'
 
 export default function App() {
     return (
