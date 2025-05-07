@@ -33,7 +33,7 @@ export function Header() {
     return (
         <View style={styles.container}>
             <View style={styles.contentArea}>
-                <Avatar username={data?.displayName} size={96} />
+                <Avatar username={data?.displayName} />
                 <Text style={styles.title}>Olá, {data?.displayName}</Text>
             </View>
             <Button variant='ghost' onPress={() => navigation.navigate('Search')}>
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         display: 'flex',
+        flexDirection: 'row',
         gap: 12,
         justifyContent: 'space-between',
         padding: 12
@@ -54,11 +55,12 @@ const styles = StyleSheet.create({
     contentArea: {
         alignItems: 'center',
         display: 'flex',
+        flexDirection: 'row',
         gap: 8
     },
     title: {
         color: colors.primaryText,
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold'
     },
 })
