@@ -20,27 +20,19 @@ export function SignUpScreen() {
 
 	return (
 		<Wrapper>
-			<View style={styles.container}>
-				<Text style={styles.title}>Fazer cadastro</Text>
-				<Input placeholder='Nome' value={displayName} onChangeText={setDisplayName} />
-				<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
-				<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
-				<Button onPress={handleRegister}>Cadastrar</Button>
-				<Text style={styles.paragraph}>
-					Já tem uma conta? <Link to='SignIn'>Entrar na conta</Link>
-				</Text>
-			</View>
+			<Text style={styles.title}>Fazer cadastro</Text>
+			<Input placeholder='Nome' value={displayName} onChangeText={setDisplayName} />
+			<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
+			<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
+			<Button onPress={handleRegister}>Cadastrar</Button>
+			<Text style={styles.paragraph}>
+				Já tem uma conta? <Link to='SignIn'>Entrar na conta</Link>
+			</Text>
 		</Wrapper>
 	)
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		gap: 12,
-		justifyContent: 'center',
-		padding: 12
-	},
 	title: {
 		color: colors.primaryText,
 		fontSize: 20,

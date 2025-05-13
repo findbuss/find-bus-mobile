@@ -18,26 +18,18 @@ export function SignInScreen() {
 
 	return (
 		<Wrapper>
-			<View style={styles.container}>
-				<Text style={styles.title}>Fazer entrada</Text>
-				<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
-				<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
-				<Button onPress={handleLogin}>Entrar</Button>
-				<Text style={styles.paragraph}>
-					Ainda não tem uma conta? <Link to='SignUp'>Criar uma nova conta</Link>
-				</Text>
-			</View>
+			<Text style={styles.title}>Fazer entrada</Text>
+			<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
+			<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
+			<Button onPress={handleLogin}>Entrar</Button>
+			<Text style={styles.paragraph}>
+				Ainda não tem uma conta? <Link to='SignUp'>Criar uma nova conta</Link>
+			</Text>
 		</Wrapper>
 	)
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		gap: 12,
-		justifyContent: 'center',
-		padding: 12
-	},
 	title: {
 		color: colors.primaryText,
 		fontSize: 20,

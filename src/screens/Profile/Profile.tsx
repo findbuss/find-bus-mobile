@@ -19,29 +19,22 @@ export function ProfileScreen() {
 
 	return (
 		<Wrapper>
-			<View style={styles.container}>
-				<View style={styles.contentArea}>
-					<Avatar username={data?.displayName} size={96} />
-					<Text style={styles.title}>{data?.displayName}</Text>
-				</View>
-				<Card title='Configurações'>
-					<View style={styles.cardContentArea}>
-						<Button variant='negative' onPress={handleLogout}>
-							Sair
-						</Button>
-					</View>
-				</Card>
+			<View style={styles.contentArea}>
+				<Avatar username={data?.displayName} size={96} />
+				<Text style={styles.title}>{data?.displayName}</Text>
 			</View>
+			<Card title='Configurações'>
+				<View style={styles.cardContentArea}>
+					<Button variant='negative' onPress={handleLogout}>
+						Sair
+					</Button>
+				</View>
+			</Card>
 		</Wrapper>
 	)
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		gap: 12,
-		padding: 12
-	},
 	contentArea: {
 		alignItems: 'center',
 		display: 'flex',

@@ -66,28 +66,21 @@ export function SearchScreen() {
 
 	return (
 		<Wrapper>
-			<View style={styles.container}>
-				<SearchBar value={query} onChangeText={value => setQuery(value)} />
-				<Card title='Pesquisa'>
-					<ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
-					<ScrollView>
-						<View style={styles.itemArea}>{items.length > 0 ? items : <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>}</View>
-					</ScrollView>
-				</Card>
-			</View>
+			<SearchBar value={query} onChangeText={value => setQuery(value)} />
+			<Card title='Pesquisa'>
+				<ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
+				<ScrollView>
+					<View style={styles.itemArea}>{items.length > 0 ? items : <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>}</View>
+				</ScrollView>
+			</Card>
 		</Wrapper>
 	)
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		gap: 12,
-		padding: 12
-	},
 	itemArea: {
 		display: 'flex',
-		gap: 12
+		gap: 8
 	},
 	paragraph: {
 		color: colors.secondaryText,
