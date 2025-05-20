@@ -1,76 +1,30 @@
 import { useState } from 'react'
-import { View, ScrollView, Text, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Bus, Card, ChipBar, SearchBar, Stop, Wrapper } from '../../components'
 import { colors } from '../../styles/colors'
-import { BusType } from '../../components/Bus/Bus.types'
-import { StopType } from '../../components/Stop/Stop.types'
+import { useSearch } from '../../hooks/useSearch'
 
 export function SearchScreen() {
-	const [query, setQuery] = useState<string>('')
-	const [selectedTab, setSelectedTab] = useState<number>(0)
+	const [query, setQuery] = useState('')
+	const [tab, setTab] = useState(0)
 
-	const tabs = [
-		{
-			title: 'Linhas'
-		},
-		{
-			title: 'Paradas'
-		}
-	]
-
-	const buses: BusType[] = [
-		{
-			route_id: '233C-10',
-			route_color: '#FFD100',
-			route_text_color: '#000000',
-			route_long_name: 'Ceret',
-			next_bus: '5 min'
-		},
-		{
-			route_id: '407L-10',
-			route_color: '#DA291C',
-			route_text_color: '#FFFFFF',
-			route_long_name: 'Barro Branco',
-			next_bus: '5 min'
-		}
-	]
-
-	const stops: StopType[] = [
-		{
-			stop_id: '233C-10',
-			stop_color: '#FFD100',
-			stop_text_color: '#000000',
-			stop_long_name: 'Ceret'
-		},
-		{
-			stop_id: '407L-10',
-			stop_color: '#DA291C',
-			stop_text_color: '#FFFFFF',
-			stop_long_name: 'Barro Branco'
-		}
-	]
-
-	const getStops = () => {}
-	const getLines = () => {}
-
-	const getItems = () => {
-		switch (selectedTab) {
-			case 0:
-				return buses.map((bus, i) => <Bus key={i} data={bus} onPress={() => null} saved={false} onToggleSave={() => null} />)
-			case 1:
-				return stops.map((stop, i) => <Stop key={i} data={stop} onPress={() => null} saved={false} onToggleSave={() => null} />)
-		}
-	}
-
-	const items = getItems() || []
+	const tabType = tab === 0 ? 'trips' : 'stops'
+	const { results: data, loading, error } = useSearch(tabType, query)
 
 	return (
 		<Wrapper>
-			<SearchBar value={query} onChangeText={value => setQuery(value)} />
+			<SearchBar value={query} onChangeText={setQuery} />
 			<Card title='Pesquisa'>
-				<ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
+				<ChipBar data={[{ title: 'Linhas' }, { title: 'Paradas' }]} selectedOption={tab} onChangeTab={setTab} />
+				{loading && <ActivityIndicator />}
 				<ScrollView>
-					<View style={styles.itemArea}>{items.length > 0 ? items : <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>}</View>
+					<View style={styles.itemArea}>
+						{error && <Text style={styles.paragraph}>{error.message || 'Erro ao carregar os dados.'}</Text>}
+						{!loading && data.length === 0 && query.trim() !== '' && <Text style={styles.paragraph}>Nenhum item encontrado.</Text>}
+						{tab === 0
+							? data.map(trip => <Bus key={trip.id} data={trip} onPress={() => null} saved={false} onToggleSave={() => {}} />)
+							: data.map(stop => <Stop key={stop.id} data={stop} onPress={() => null} saved={false} onToggleSave={() => {}} />)}
+					</View>
 				</ScrollView>
 			</Card>
 		</Wrapper>

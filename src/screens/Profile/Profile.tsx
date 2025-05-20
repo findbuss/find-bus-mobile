@@ -1,27 +1,20 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { Avatar, Button, Card, Wrapper } from '../../components'
 import { colors } from '../../styles'
-import { useEffect, useState } from 'react'
-import { useAuth } from '../../contexts/AuthContext'
-
-interface UserProps {
-	displayName: string
-}
+import { useAuthContext } from '../../contexts/AuthContext'
 
 export function ProfileScreen() {
-	const { logout } = useAuth()
-
-	const [data, setData] = useState<UserProps>()
+	const { user, signOut } = useAuthContext()
 
 	const handleLogout = async () => {
-		logout()
+		signOut()
 	}
 
 	return (
 		<Wrapper>
 			<View style={styles.contentArea}>
-				<Avatar username={data?.displayName} size={96} />
-				<Text style={styles.title}>{data?.displayName}</Text>
+				<Avatar username={user?.name} size={96} />
+				<Text style={styles.title}>{user?.name}</Text>
 			</View>
 			<Card title='Configurações'>
 				<View style={styles.cardContentArea}>

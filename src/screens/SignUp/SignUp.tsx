@@ -1,30 +1,38 @@
 import { useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import { Button, Input, Link, Wrapper } from '../../components'
 import { colors } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { AuthNavigationProp } from '../../navigation/AuthStackParamList'
+import { useRegister } from '../../hooks/useRegister'
 
 export function SignUpScreen() {
 	const navigation = useNavigation<AuthNavigationProp>()
 
-	const [displayName, setDisplayName] = useState('')
+	const { register, loading, error } = useRegister()
+
+	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const registerUser = () => {}
+	async function handleRegister() {
+		const ok = await register({ name, email, password })
 
-	function handleRegister() {
-		navigation.navigate('SignIn')
+		if (ok) {
+			navigation.navigate('SignIn')
+		}
 	}
 
 	return (
 		<Wrapper>
 			<Text style={styles.title}>Fazer cadastro</Text>
-			<Input placeholder='Nome' value={displayName} onChangeText={setDisplayName} />
+			<Input placeholder='Nome' value={name} onChangeText={setName} />
 			<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
 			<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
-			<Button onPress={handleRegister}>Cadastrar</Button>
+			<Button onPress={handleRegister} disabled={loading}>
+				Cadastrar
+			</Button>
+			{error && <Text style={styles.error}>{error.message}</Text>}
 			<Text style={styles.paragraph}>
 				Já tem uma conta? <Link to='SignIn'>Entrar na conta</Link>
 			</Text>
@@ -37,6 +45,10 @@ const styles = StyleSheet.create({
 		color: colors.primaryText,
 		fontSize: 20,
 		fontWeight: 'bold',
+		textAlign: 'center'
+	},
+	error: {
+		color: colors.negative,
 		textAlign: 'center'
 	},
 	paragraph: {

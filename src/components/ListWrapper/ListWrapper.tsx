@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { Text, ScrollView, StyleSheet, ActivityIndicator, View } from 'react-native'
 import { Bus } from '../Bus'
 import { Card } from '../Card'
 import { ChipBar } from '../ChipBar'
@@ -7,78 +7,36 @@ import { Header } from '../Header'
 import { Stop } from '../Stop'
 import { Wrapper } from '../Wrapper'
 import { colors } from '../../styles/colors'
-import { BusType } from '../Bus/Bus.types'
-import { StopType } from '../Stop/Stop.types'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { TabsParamList } from '../../navigation/TabsParamList'
+import { useRecents, useSaved } from '../../hooks/useData'
+import { DataType } from '../../services/api.types'
 
 export function ListWrapper() {
 	const route = useRoute<RouteProp<TabsParamList>>()
-	const { tabType } = route.params || {}
+	const tabType = route.params?.tabType
+	const [tab, setTab] = useState(0)
 
-	const [selectedTab, setSelectedTab] = useState<number>(0)
+	const isTripsTab = tab === 0
+	const dataType: DataType = isTripsTab ? 'trips' : 'stops'
 
-	const tabs = [
-		{
-			title: 'Linhas'
-		},
-		{
-			title: 'Paradas'
-		}
-	]
+	const { data, loading, error } = tabType === 'recents' ? useRecents(dataType) : useSaved(dataType)
 
-	const getItems = () => {}
-
-	const buses: BusType[] = [
-		{
-			route_id: '233C-10',
-			route_color: '#FFD100',
-			route_text_color: '#000000',
-			route_long_name: 'Ceret',
-			next_bus: '5 min'
-		},
-		{
-			route_id: '407L-10',
-			route_color: '#DA291C',
-			route_text_color: '#FFFFFF',
-			route_long_name: 'Barro Branco',
-			next_bus: '5 min'
-		}
-	]
-
-	const stops: StopType[] = [
-		{
-			stop_id: '233C-10',
-			stop_color: '#FFD100',
-			stop_text_color: '#000000',
-			stop_long_name: 'Ceret'
-		},
-		{
-			stop_id: '407L-10',
-			stop_color: '#DA291C',
-			stop_text_color: '#FFFFFF',
-			stop_long_name: 'Barro Branco'
-		}
-	]
-
-	const renderItems = () => {
-		switch (selectedTab) {
-			case 0:
-				return buses.map((bus, i) => <Bus key={i} data={bus} onPress={() => null} saved={false} onToggleSave={() => null} />)
-			case 1:
-				return stops.map((stop, i) => <Stop key={i} data={stop} onPress={() => null} saved={false} onToggleSave={() => null} />)
-		}
-	}
-
-	const items = renderItems() || []
+	if (loading) return <ActivityIndicator />
 
 	return (
 		<Wrapper>
 			<Header />
 			<Card title={tabType === 'recents' ? 'Recentes' : 'Salvos'}>
-				<ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
+				<ChipBar data={[{ title: 'Linhas' }, { title: 'Paradas' }]} selectedOption={tab} onChangeTab={setTab} />
 				<ScrollView>
-					<View style={styles.itemArea}>{items.length > 0 ? items : <Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>}</View>
+					<View style={styles.itemArea}>
+						{error && <Text style={styles.paragraph}>{error.message || 'Erro ao carregar os dados.'}</Text>}
+						{data.length === 0 && <Text style={styles.paragraph}>Nenhum item.</Text>}
+						{isTripsTab
+							? data.map(trip => <Bus key={trip.id} data={trip} onPress={() => null} saved={false} onToggleSave={() => {}} />)
+							: data.map(stop => <Stop key={stop.id} data={stop} onPress={() => null} saved={false} onToggleSave={() => {}} />)}
+					</View>
 				</ScrollView>
 			</Card>
 		</Wrapper>

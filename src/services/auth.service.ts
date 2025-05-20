@@ -1,18 +1,25 @@
 import { apiFetch } from './api'
 
-interface AuthPayload {
+export interface User {
+	id: string
+	name: string
+	email: string
+}
+
+interface Credentials {
 	username: string
 	password: string
 }
 
-interface AuthResponse {
-	token: string
-	user_id: number
+export async function login(credentials: Credentials): Promise<User> {
+	return apiFetch<User>('/auth', {
+		method: 'POST',
+		body: JSON.stringify(credentials)
+	})
 }
 
-export async function login(payload: AuthPayload): Promise<AuthResponse> {
-	return apiFetch<AuthResponse>('/auth', {
-		method: 'POST',
-		body: JSON.stringify(payload)
+export async function getAuthStatus(): Promise<User> {
+	return apiFetch<User>('/auth', {
+		method: 'GET'
 	})
 }

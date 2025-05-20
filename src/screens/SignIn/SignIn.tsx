@@ -1,25 +1,39 @@
 import { useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Button, Input, Link, Wrapper } from '../../components'
 import { colors } from '../../styles'
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 export function SignInScreen() {
-	const { login } = useAuth()
+	const { user, loading, signIn } = useAuthContext()
 
-	const [email, setEmail] = useState('')
+	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 
-	const loginUser = () => {}
+	async function handleLogin() {
+		await signIn({ username, password })
+	}
 
-	function handleLogin() {
-		login()
+	if (loading) {
+		return (
+			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<ActivityIndicator size='large' />
+			</View>
+		)
+	}
+
+	if (user) {
+		return (
+			<View style={{ padding: 20 }}>
+				<Text>Welcome, {user.name}!</Text>
+			</View>
+		)
 	}
 
 	return (
 		<Wrapper>
 			<Text style={styles.title}>Fazer entrada</Text>
-			<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
+			<Input placeholder='E-mail' value={username} onChangeText={setUsername} />
 			<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
 			<Button onPress={handleLogin}>Entrar</Button>
 			<Text style={styles.paragraph}>
