@@ -5,23 +5,22 @@ import { LinkType, LinkProps } from './Link.types'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 export function Link({ children, to }: LinkProps) {
-    const navigation = useNavigation<NativeStackNavigationProp<LinkType>>()
+	const navigation = useNavigation<NativeStackNavigationProp<LinkType>>()
 
-    const handlePress = () => {
-        navigation.navigate(to)
-    }
+	const handlePress = () => {
+		navigation.navigate(to)
+	}
 
-    return (
-        <Pressable onPress={handlePress}>
-            <Text style={styles.linkText}>{children}</Text>
-        </Pressable>
-    )
+	return (
+		<Pressable onPress={handlePress}>
+			<Text style={styles.linkText}>{children}</Text>
+		</Pressable>
+	)
 }
 
 const styles = StyleSheet.create({
-    linkText: {
-        color: colors.highlight,
-        fontSize: 14,
-        textAlign: 'center'
-    }
+	linkText: {
+		color: colors.highlight,
+		fontSize: 14
+	}
 })

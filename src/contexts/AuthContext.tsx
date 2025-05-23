@@ -1,27 +1,25 @@
-import { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext } from 'react'
+import { useAuthLogic } from '../hooks/useAuthLogic'
+import type { User } from '../services/auth.service'
 
 interface AuthContextData {
-    isAuthenticated: boolean
-    login: () => void
-    logout: () => void
+	user: User | null
+	loading: boolean
+	error: Error | null
+	signIn: (credentials: { username: string; password: string }) => Promise<void>
+	signOut: () => void
 }
 
-const AuthContext = createContext({} as AuthContextData)
+const AuthContext = createContext<AuthContextData | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+	const auth = useAuthLogic()
 
-    function login() {
-        setIsAuthenticated(true)
-    }
-
-    function logout() {
-        setIsAuthenticated(false)
-    }
-
-    return <AuthContext.Provider value={{ isAuthenticated, login, logout }}>{children}</AuthContext.Provider>
+	return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
 }
 
-export function useAuth() {
-    return useContext(AuthContext)
+export function useAuthContext() {
+	const context = useContext(AuthContext)
+	if (!context) throw new Error('useAuthContext must be used within AuthProvider')
+	return context
 }

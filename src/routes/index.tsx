@@ -1,10 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { AuthStack } from './AuthStack'
 import { AppStack } from './AppStack'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuthContext } from '../contexts/AuthContext'
+import { Splash } from '../screens/Splash/Splash'
 
 export function Routes() {
-    const { isAuthenticated } = useAuth()
+	const { loading, user } = useAuthContext()
 
-    return <NavigationContainer>{isAuthenticated ? <AppStack /> : <AuthStack />}</NavigationContainer>
+	if (loading) return <Splash />
+
+	return <NavigationContainer>{user ? <AppStack /> : <AuthStack />}</NavigationContainer>
 }
