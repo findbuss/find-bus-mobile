@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { registerUser, RegisterPayload } from '../services/register.service'
 
-export function useRegister() {
+export function useRegister(registerUser: (payload: any) => Promise<void>) {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<Error | null>(null)
 	const [success, setSuccess] = useState(false)
 
-	const register = async (payload: RegisterPayload) => {
+	const register = async (payload: any) => {
 		setLoading(true)
 		setError(null)
 		setSuccess(false)
