@@ -4,22 +4,24 @@ import { Button, Input, Link, Wrapper } from '../../components'
 import { colors } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { AuthNavigationProp } from '../../navigation/AuthStackParamList'
-import { useRegister } from '../../hooks/useRegister'
+import { useAuth } from '../../contexts/AuthContext'
 
 export function SignUpScreen() {
 	const navigation = useNavigation<AuthNavigationProp>()
-
-	const { register, loading, error } = useRegister()
+	const { register, loading, error } = useAuth()
 
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [localError, setLocalError] = useState<string | null>(null)
 
 	async function handleRegister() {
-		const ok = await register({ name, email, password })
-
-		if (ok) {
+		setLocalError(null)
+		try {
+			await register(name, email, password)
 			navigation.navigate('SignIn')
+		} catch (err) {
+			setLocalError((err as Error).message)
 		}
 	}
 
@@ -28,11 +30,18 @@ export function SignUpScreen() {
 			<Text style={styles.title}>Fazer cadastro</Text>
 			<Input placeholder='Nome' value={name} onChangeText={setName} />
 			<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
-			<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
+			<Input
+				placeholder='Senha'
+				value={password}
+				onChangeText={setPassword}
+				secureTextEntry={true}
+				autoCorrect={false}
+				autoCapitalize='none'
+			/>
 			<Button onPress={handleRegister} disabled={loading}>
 				Cadastrar
 			</Button>
-			{error && <Text style={styles.error}>{error.message}</Text>}
+			{(localError || error) && <Text style={styles.error}>{localError ?? error?.message}</Text>}
 			<Text style={styles.paragraph}>
 				Já tem uma conta? <Link to='SignIn'>Entrar na conta</Link>
 			</Text>

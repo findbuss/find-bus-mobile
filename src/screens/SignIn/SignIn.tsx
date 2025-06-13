@@ -2,16 +2,16 @@ import { useState } from 'react'
 import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Button, Input, Link, Wrapper } from '../../components'
 import { colors } from '../../styles'
-import { useAuthContext } from '../../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 
 export function SignInScreen() {
-	const { user, loading, signIn } = useAuthContext()
+	const { isAuthenticated, loading, error, login } = useAuth()
 
-	const [username, setUsername] = useState('')
+	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
 	async function handleLogin() {
-		await signIn({ username, password })
+		await login(email, password)
 	}
 
 	if (loading) {
@@ -22,10 +22,10 @@ export function SignInScreen() {
 		)
 	}
 
-	if (user) {
+	if (isAuthenticated) {
 		return (
 			<View style={{ padding: 20 }}>
-				<Text>Welcome, {user.name}!</Text>
+				<Text>Você está logado!</Text>
 			</View>
 		)
 	}
@@ -33,9 +33,17 @@ export function SignInScreen() {
 	return (
 		<Wrapper>
 			<Text style={styles.title}>Fazer entrada</Text>
-			<Input placeholder='E-mail' value={username} onChangeText={setUsername} />
-			<Input placeholder='Senha' value={password} onChangeText={setPassword} secureTextEntry={true} autoCorrect={false} autoCapitalize='none' />
+			<Input placeholder='E-mail' value={email} onChangeText={setEmail} />
+			<Input
+				placeholder='Senha'
+				value={password}
+				onChangeText={setPassword}
+				secureTextEntry
+				autoCorrect={false}
+				autoCapitalize='none'
+			/>
 			<Button onPress={handleLogin}>Entrar</Button>
+			{error && <Text style={styles.error}>{error.message}</Text>}
 			<Text style={styles.paragraph}>
 				Ainda não tem uma conta? <Link to='SignUp'>Criar uma nova conta</Link>
 			</Text>
@@ -48,6 +56,10 @@ const styles = StyleSheet.create({
 		color: colors.primaryText,
 		fontSize: 20,
 		fontWeight: 'bold',
+		textAlign: 'center'
+	},
+	error: {
+		color: colors.negative,
 		textAlign: 'center'
 	},
 	paragraph: {

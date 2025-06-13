@@ -1,37 +1,35 @@
 import { useState, useEffect } from 'react'
-import { getRecents } from '../services/recents.service'
-import { getSaved } from '../services/saved.service'
-import { DataType, DataMap } from '../services/api.types'
+import { Item } from '../services/api.types'
+import { apiFetch } from '../services/api'
 
-function useData<T extends DataType>(type: T, category: 'recents' | 'saved') {
-	const [data, setData] = useState<DataMap[T]>([])
+export function useItems(endpoint: '/recents' | '/saved', query?: string) {
+	const [items, setItems] = useState<Item[]>([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<Error | null>(null)
 
 	useEffect(() => {
+		let isMounted = true
+
+		const url = query ? `${endpoint}?q=${encodeURIComponent(query)}` : endpoint
+
+		apiFetch<Item[]>(url)
+			.then(data => {
+				if (isMounted) setItems(data)
+			})
+			.catch(err => {
+				if (isMounted) setError(err as Error)
+			})
+			.finally(() => {
+				if (isMounted) setLoading(false)
+			})
+
 		setLoading(true)
 		setError(null)
 
-		const fetcher = category === 'recents' ? getRecents : getSaved
+		return () => {
+			isMounted = false
+		}
+	}, [endpoint, query])
 
-		fetcher(type)
-			.then(response => {
-				setData(response)
-				setLoading(false)
-			})
-			.catch(err => {
-				setError(err)
-				setLoading(false)
-			})
-	}, [type, category])
-
-	return { data, loading, error }
-}
-
-export function useRecents<T extends DataType>(type: T) {
-	return useData(type, 'recents')
-}
-
-export function useSaved<T extends DataType>(type: T) {
-	return useData(type, 'saved')
+	return { items, loading, error }
 }

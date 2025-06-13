@@ -1,23 +1,35 @@
 import { useEffect, useState } from 'react'
-import { find } from '../services/search.service'
-import { DataType, DataMap } from '../services/api.types'
+import { Item } from '../services/api.types'
+import { apiFetch } from '../services/api'
 
-export function useSearch<T extends DataType>(type: T, query: string) {
-	const [results, setResults] = useState<DataMap[T]>([] as DataMap[T])
+export function useSearch(query: string) {
+	const [results, setResults] = useState<Item[]>([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<Error | null>(null)
 
 	useEffect(() => {
 		if (!query) return
 
+		let isMounted = true
+
+		apiFetch<Item[]>(`/search?q=${encodeURIComponent(query)}`)
+			.then(data => {
+				if (isMounted) setResults(data)
+			})
+			.catch(err => {
+				if (isMounted) setError(err as Error)
+			})
+			.finally(() => {
+				if (isMounted) setLoading(false)
+			})
+
 		setLoading(true)
 		setError(null)
 
-		find(type, query)
-			.then(data => setResults(data as DataMap[T]))
-			.catch(err => setError(err instanceof Error ? err : new Error(String(err))))
-			.finally(() => setLoading(false))
-	}, [type, query])
+		return () => {
+			isMounted = false
+		}
+	}, [query])
 
 	return { results, loading, error }
 }
