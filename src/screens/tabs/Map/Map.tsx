@@ -14,13 +14,16 @@ export function MapScreen() {
 	const getShapeById = () => {}
 	const getBusPositionByLineId = () => {}
 
+	const latitude = -23.55052
+	const longitude = -46.633308
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.content}>
 				<View style={styles.floatingContent}>
 					<SearchBar value={query} onChangeText={value => setQuery(value)} />
 				</View>
-				<Map />
+				<Map latitude={latitude} longitude={longitude} />
 			</View>
 		</SafeAreaView>
 	)
