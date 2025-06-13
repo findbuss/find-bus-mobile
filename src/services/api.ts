@@ -1,17 +1,23 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { API_URL, TOKEN_KEY } from '@env'
 
-export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-	const token = await AsyncStorage.getItem(TOKEN_KEY)
+type ApiFetchOptions = RequestInit & {
+	skipAuth?: boolean
+}
+
+export async function apiFetch<T>(endpoint: string, options: ApiFetchOptions = {}): Promise<T> {
+	const { skipAuth, ...restOptions } = options
+
+	const token = skipAuth ? null : await AsyncStorage.getItem(TOKEN_KEY)
 
 	const headers = {
 		'Content-Type': 'application/json',
 		...(token ? { Authorization: `Bearer ${token}` } : {}),
-		...options.headers
+		...restOptions.headers
 	}
 
 	const response = await fetch(`${API_URL}${endpoint}`, {
-		...options,
+		...restOptions,
 		headers
 	})
 

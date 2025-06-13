@@ -12,7 +12,7 @@ export function useSearch(query: string) {
 
 		let isMounted = true
 
-		apiFetch<Item[]>(`/search?q=${encodeURIComponent(query)}`)
+		apiFetch<Item[]>(`/search?q=${encodeURIComponent(query)}`, { skipAuth: true })
 			.then(data => {
 				if (isMounted) setResults(data)
 			})
