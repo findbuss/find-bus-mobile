@@ -1,16 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { SearchScreen, SignInScreen, SignUpScreen } from '../screens'
-import { MapScreen } from '../screens/tabs/Map'
+import { SignInScreen, SignUpScreen } from '../screens'
 
 const Stack = createNativeStackNavigator()
 
 export function AuthStack() {
-	return (
-		<Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
-			<Stack.Screen name='SignIn' component={SignInScreen} />
-			<Stack.Screen name='SignUp' component={SignUpScreen} />
-			<Stack.Screen name='Home' component={MapScreen} />
-			<Stack.Screen name='Search' component={SearchScreen} />
-		</Stack.Navigator>
-	)
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='SignIn'>
+            <Stack.Screen name='SignIn' component={SignInScreen} />
+            <Stack.Screen name='SignUp' component={SignUpScreen} />
+        </Stack.Navigator>
+    )
 }

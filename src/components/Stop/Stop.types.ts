@@ -1,13 +1,13 @@
 export type StopType = {
-	id: string
-	tagColor: string
-	textColor: string
-	longName: string
+    stop_id: string
+    stop_long_name: string
+    stop_color: string
+    stop_text_color: string
 }
 
 export interface StopProps {
-	data: StopType
-	saved: boolean
-	onPress: () => void
-	onToggleSave: () => void
+    data: StopType
+    saved: boolean
+    onPress: () => void
+    onToggleSave: () => void
 }
