@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Item } from '../services/api.types'
 import { apiFetch } from '../services/api'
 
-export function useItems(endpoint: '/recents' | '/saved', query?: string) {
+export function useItems(endpoint: '/history' | '/favorites', query?: string) {
 	const [items, setItems] = useState<Item[]>([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<Error | null>(null)
