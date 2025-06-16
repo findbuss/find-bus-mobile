@@ -12,7 +12,7 @@ export function ListWrapper() {
 	const route = useRoute<RouteProp<TabsParamList>>()
 	const tabType = route.params?.tabType
 
-	const { items: data, loading, error } = tabType === 'recents' ? useItems('/recents') : useItems('/saved')
+	const { items: data, loading, error } = tabType === 'recents' ? useItems('/history') : useItems('/favorites')
 
 	if (loading) return <ActivityIndicator />
 
