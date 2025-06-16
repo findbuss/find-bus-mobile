@@ -3,15 +3,22 @@ import { Avatar, Button, Card, Wrapper } from '../../components'
 import { colors } from '../../styles'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
-
-interface UserProps {
-	displayName: string
-}
+import { loadUser } from '../../services/userStorage'
 
 export function ProfileScreen() {
 	const { logout } = useAuth()
 
-	const [data, setData] = useState<UserProps>()
+	const [name, setName] = useState<string>('')
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			const user = await loadUser()
+			if (user) {
+				setName(user.displayName)
+			}
+		}
+		fetchUser()
+	}, [])
 
 	const handleLogout = async () => {
 		logout()
@@ -20,8 +27,8 @@ export function ProfileScreen() {
 	return (
 		<Wrapper>
 			<View style={styles.contentArea}>
-				<Avatar username={data?.displayName} size={96} />
-				<Text style={styles.title}>{data?.displayName}</Text>
+				<Avatar username={name} size={96} />
+				<Text style={styles.title}>{name}</Text>
 			</View>
 			<Card title='Configurações'>
 				<View style={styles.cardContentArea}>

@@ -6,27 +6,28 @@ import { colors } from '../../styles'
 import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { AppNavigationProp } from '../../navigation/AppStackParamList'
-
-interface UserProps {
-	displayName: string
-}
+import { loadUser } from '../../services/userStorage'
 
 export function Header() {
 	const navigation = useNavigation<AppNavigationProp>()
 
-	const [data, setData] = useState<UserProps>({
-		displayName: 'João Silva'
-	})
+	const [name, setName] = useState<string>('')
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			const user = await loadUser()
+			if (user) {
+				setName(user.displayName)
+			}
+		}
+		fetchUser()
+	}, [])
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.contentArea}>
-				<Avatar username={data?.displayName} />
-				{data?.displayName ? (
-					<Text style={styles.title}>Olá, {data?.displayName}</Text>
-				) : (
-					<Text style={styles.title}>Olá</Text>
-				)}
+				<Avatar username={name} />
+				{name ? <Text style={styles.title}>Olá, {name}</Text> : <Text style={styles.title}>Olá</Text>}
 			</View>
 			<Button variant='ghost' onPress={() => navigation.navigate('Search')}>
 				<Icon name='search-outline' />
