@@ -1,10 +1,12 @@
-export const presets = ['module:metro-react-native-babel-preset']
-export const plugins = [
-	[
-		'module:react-native-dotenv',
-		{
-			moduleName: '@env',
-			path: '.env'
-		}
-	]
-]
+module.exports = {
+  presets: ["babel-preset-expo"],
+  plugins: [
+    [
+      "module:react-native-dotenv",
+      {
+        moduleName: "@env",
+        path: ".env",
+      },
+    ],
+  ],
+};
