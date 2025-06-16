@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { API_URL, TOKEN_KEY, USER_KEY } from '@env'
+
+import Constants from 'expo-constants'
+
+const { API_URL, TOKEN_KEY, USER_KEY } = Constants.expoConfig?.extra || {}
 
 interface User {
 	id: string

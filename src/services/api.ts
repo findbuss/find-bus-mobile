@@ -1,5 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { API_URL, TOKEN_KEY } from '@env'
+
+import Constants from 'expo-constants'
+
+const { API_URL, TOKEN_KEY } = Constants.expoConfig?.extra || {}
 
 type ApiFetchOptions = RequestInit & {
 	skipAuth?: boolean
