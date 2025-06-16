@@ -1,12 +1,15 @@
 import { useState, useCallback } from 'react'
 import { View, ScrollView, Text, StyleSheet } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { Bus, Card, SearchBar, Wrapper } from '../../components'
 import { colors } from '../../styles/colors'
 import { BusType } from '../../components/Bus/Bus.types'
 import { loadBuses, toggleBusSaved } from '../../services/busStorage'
+import { AppNavigationProp } from '../../navigation/AppStackParamList'
 
 export function SearchScreen() {
+	const navigation = useNavigation<AppNavigationProp>()
+
 	const [query, setQuery] = useState<string>('')
 
 	const [buses, setBuses] = useState<BusType[]>([])
@@ -67,7 +70,7 @@ export function SearchScreen() {
 									data={bus}
 									saved={bus.saved}
 									onToggleSave={() => handleToggleSave(bus.route_id)}
-									onPress={() => null}
+									onPress={() => navigation.navigate('Tabs', { screen: 'Início' })}
 								/>
 							))
 						) : (
