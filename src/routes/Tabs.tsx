@@ -35,7 +35,7 @@ export function Tabs() {
 		>
 			<Tab.Screen name='Início' component={MapScreen} />
 			<Tab.Screen name='Recentes' component={ListWrapper} initialParams={{ tabType: 'recents' }} />
-			<Tab.Screen name='Salvos' component={ListWrapper} initialParams={{ tabType: 'saves' }} />
+			<Tab.Screen name='Salvos' component={ListWrapper} initialParams={{ tabType: 'saved' }} />
 		</Tab.Navigator>
 	)
 }

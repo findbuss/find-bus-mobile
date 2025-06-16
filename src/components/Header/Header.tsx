@@ -14,13 +14,19 @@ interface UserProps {
 export function Header() {
 	const navigation = useNavigation<AppNavigationProp>()
 
-	const [data, setData] = useState<UserProps>()
+	const [data, setData] = useState<UserProps>({
+		displayName: 'João Silva'
+	})
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.contentArea}>
 				<Avatar username={data?.displayName} />
-				<Text style={styles.title}>Olá, {data?.displayName}</Text>
+				{data?.displayName ? (
+					<Text style={styles.title}>Olá, {data?.displayName}</Text>
+				) : (
+					<Text style={styles.title}>Olá</Text>
+				)}
 			</View>
 			<Button variant='ghost' onPress={() => navigation.navigate('Search')}>
 				<Icon name='search-outline' />
