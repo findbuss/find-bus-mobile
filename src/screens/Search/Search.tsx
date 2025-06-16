@@ -1,81 +1,77 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { View, ScrollView, Text, StyleSheet } from 'react-native'
-import { Bus, Card, ChipBar, SearchBar, Stop, Wrapper } from '../../components'
+import { useFocusEffect } from '@react-navigation/native'
+import { Bus, Card, SearchBar, Wrapper } from '../../components'
 import { colors } from '../../styles/colors'
 import { BusType } from '../../components/Bus/Bus.types'
-import { StopType } from '../../components/Stop/Stop.types'
+import { loadBuses, toggleBusSaved } from '../../services/busStorage'
 
 export function SearchScreen() {
 	const [query, setQuery] = useState<string>('')
-	const [selectedTab, setSelectedTab] = useState<number>(0)
 
-	const tabs = [
-		{
-			title: 'Linhas'
-		},
-		{
-			title: 'Paradas'
-		}
-	]
+	const [buses, setBuses] = useState<BusType[]>([])
+	const [loading, setLoading] = useState(true)
 
-	const buses: BusType[] = [
-		{
-			route_id: '233C-10',
-			route_color: '#FFD100',
-			route_text_color: '#000000',
-			route_long_name: 'Ceret',
-			next_bus: '5 min'
-		},
-		{
-			route_id: '407L-10',
-			route_color: '#DA291C',
-			route_text_color: '#FFFFFF',
-			route_long_name: 'Barro Branco',
-			next_bus: '5 min'
-		}
-	]
-
-	const stops: StopType[] = [
-		{
-			stop_id: '233C-10',
-			stop_color: '#FFD100',
-			stop_text_color: '#000000',
-			stop_long_name: 'Ceret'
-		},
-		{
-			stop_id: '407L-10',
-			stop_color: '#DA291C',
-			stop_text_color: '#FFFFFF',
-			stop_long_name: 'Barro Branco'
-		}
-	]
-
-	const getItems = () => {
-		switch (selectedTab) {
-			case 0:
-				return buses.map((bus, i) => (
-					<Bus key={i} data={bus} onPress={() => null} saved={false} onToggleSave={() => null} />
-				))
-			case 1:
-				return stops.map((stop, i) => (
-					<Stop key={i} data={stop} onPress={() => null} saved={false} onToggleSave={() => null} />
-				))
-		}
+	const fetchData = async () => {
+		const data = await loadBuses()
+		setBuses(data)
+		setLoading(false)
 	}
 
-	const items = getItems() || []
+	useFocusEffect(
+		useCallback(() => {
+			let isActive = true
+
+			const load = async () => {
+				const data = await loadBuses()
+				if (isActive) {
+					setBuses(data)
+					setLoading(false)
+				}
+			}
+
+			load()
+
+			return () => {
+				isActive = false
+			}
+		}, [])
+	)
+
+	const handleToggleSave = async (id: string) => {
+		await toggleBusSaved(id)
+		await fetchData()
+	}
+
+	const filtered =
+		query.length > 0
+			? buses.filter(
+					bus =>
+						bus.route_id.toLowerCase().includes(query.toLowerCase()) ||
+						bus.route_long_name.toLowerCase().includes(query.toLowerCase())
+			  )
+			: buses
 
 	return (
 		<Wrapper>
 			<SearchBar value={query} onChangeText={value => setQuery(value)} />
 			<Card title='Pesquisa'>
-				<ChipBar data={tabs} selectedOption={selectedTab} onChangeTab={setSelectedTab} />
 				<ScrollView>
 					<View style={styles.itemArea}>
-						{items.length > 0 ? (
-							items
+						{loading ? (
+							<Text style={styles.paragraph}>Carregando...</Text>
+						) : filtered.length > 0 ? (
+							filtered.map((bus, i) => (
+								<Bus
+									key={i}
+									data={bus}
+									saved={bus.saved}
+									onToggleSave={() => handleToggleSave(bus.route_id)}
+									onPress={() => null}
+								/>
+							))
 						) : (
-							<Text style={styles.paragraph}>Nenhum item recente foi encontrado.</Text>
+							<Text style={styles.paragraph}>Nenhum ônibus encontrado.</Text>
 						)}
 					</View>
 				</ScrollView>
